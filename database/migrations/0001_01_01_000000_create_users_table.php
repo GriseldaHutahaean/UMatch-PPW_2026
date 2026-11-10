@@ -15,12 +15,14 @@ return new class extends Migration
             $table->id('user_id');
             $table->string('nama');
             $table->string('email')->unique();
-            $table->string('password');
+            $table->string('password')->nullable();
+            $table->string('google_id')->nullable()->unique();
             $table->string('no_hp')->nullable();
             $table->string('foto_profil')->nullable();
             $table->string('status_akun');
             $table->unsignedSmallInteger('gagal_login')->default(0);
             $table->timestamp('terkunci_sampai')->nullable();
+            $table->timestamps();
         });
 
         Schema::create('password_reset_tokens', function (Blueprint $table) {
