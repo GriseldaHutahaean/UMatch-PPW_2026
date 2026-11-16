@@ -15,5 +15,21 @@
         @case('arrow-left')<path d="M19 12H5"/><path d="M11 6l-6 6 6 6"/>@break
         @case('arrow-right')<path d="M5 12h14"/><path d="M13 6l6 6-6 6"/>@break
         @case('shield')<path d="M12 3l8 3v6c0 5-3.5 8-8 9-4.5-1-8-4-8-9V6z"/><path d="M9 12l2 2 4-4"/>@break
+        @case('layout-grid')<rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/>@break
+        @case('package')<path d="M21 8.5L12 3 3 8.5v7L12 21l9-5.5z"/><path d="M3 8.5l9 5 9-5M12 13.5V21"/>@break
+        @case('clipboard')<rect x="5" y="4" width="14" height="17" rx="2"/><path d="M9 4V3h6v1M8 9h8M8 13h6M8 17h4"/>@break
+        @case('bar-chart')<path d="M4 20V10M10 20V4M16 20v-7M22 20H2"/>@break
+        @case('trending-up')<path d="M3 17l6-6 4 4 8-8"/><path d="M15 7h6v6"/>@break
+        @case('users')<circle cx="9" cy="8" r="3"/><path d="M3 20a6 6 0 0 1 12 0M16 5.5a3 3 0 0 1 0 5.8M18 14a5 5 0 0 1 3 4"/>@break
+        @case('file-text')<path d="M6 3h8l4 4v14H6z"/><path d="M14 3v5h5M9 12h6M9 16h6"/>@break
+        @case('bell')<path d="M18 8a6 6 0 0 0-12 0c0 7-3 7-3 9h18c0-2-3-2-3-9M10 21h4"/>@break
+        @case('search')<circle cx="11" cy="11" r="7"/><path d="m20 20-4-4"/>@break
+        @case('chevron-down')<path d="m6 9 6 6 6-6"/>@break
+        @case('plus')<path d="M12 5v14M5 12h14"/>@break
+        @case('alert-triangle')<path d="m12 3 9 17H3z"/><path d="M12 9v4M12 17h.01"/>@break
+        @case('shopping-bag')<path d="M5 8h14l-1 12H6z"/><path d="M9 8a3 3 0 0 1 6 0"/>@break
+        @case('box')<path d="m4 7 8-4 8 4-8 4zM4 7v10l8 4 8-4V7M12 11v10"/>@break
+        @case('menu')<path d="M4 6h16M4 12h16M4 18h16"/>@break
+        @case('x')<path d="m6 6 12 12M18 6 6 18"/>@break
     @endswitch
 </svg>

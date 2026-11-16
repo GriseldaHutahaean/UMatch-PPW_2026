@@ -1,48 +1,66 @@
 @extends('layouts.auth')
 
-@section('title', 'Masuk — UMatch')
-@section('body-class', 'min-h-screen bg-slate-50 text-slate-900')
+@php
+    $role = config("umatch.roles.{$selectedRole}");
+    $roleStyles = [
+        'customer' => ['panel' => 'bg-[#12b5a8]', 'panelSoft' => 'bg-[#66d5ca]/25', 'panelText' => 'text-[#d7fffb]', 'accent' => 'text-[#00a99d]', 'accentBg' => 'bg-[#00a99d]', 'accentSoft' => 'bg-[#e8fbf9]', 'accentHover' => 'hover:bg-[#008f85]', 'focus' => 'focus:border-[#00a99d] focus:ring-[#00a99d]/15', 'icon' => 'bag'],
+        'umkm' => ['panel' => 'bg-[#ff704b]', 'panelSoft' => 'bg-[#ffb29c]/25', 'panelText' => 'text-[#ffe5dd]', 'accent' => 'text-[#ff6946]', 'accentBg' => 'bg-[#ff6946]', 'accentSoft' => 'bg-[#fff1ec]', 'accentHover' => 'hover:bg-[#eb5736]', 'focus' => 'focus:border-[#ff6946] focus:ring-[#ff6946]/15', 'icon' => 'store'],
+        'investor' => ['panel' => 'bg-[#2e649c]', 'panelSoft' => 'bg-[#86b8e5]/25', 'panelText' => 'text-[#e0efff]', 'accent' => 'text-[#205a98]', 'accentBg' => 'bg-[#205a98]', 'accentSoft' => 'bg-[#edf5ff]', 'accentHover' => 'hover:bg-[#174777]', 'focus' => 'focus:border-[#205a98] focus:ring-[#205a98]/15', 'icon' => 'trend'],
+    ][$selectedRole];
+@endphp
+
+@section('title', "Masuk sebagai {$role['label']} — UMatch")
+@section('body-class', 'min-h-screen bg-white text-slate-900')
 
 @section('content')
 <main class="grid min-h-screen lg:grid-cols-2">
-    <section class="relative hidden overflow-hidden bg-[#0d4d96] p-12 text-white lg:flex lg:flex-col lg:justify-between">
-        <div class="absolute -right-24 -top-24 h-80 w-80 rounded-full bg-[#f9b21b]/20 blur-3xl"></div>
-        <div class="relative z-10 flex items-center gap-3 text-2xl font-extrabold"><x-logo size="42" /> UMatch</div>
+    <section class="{{ $roleStyles['panel'] }} relative hidden overflow-hidden p-10 text-white lg:flex lg:flex-col lg:justify-between lg:p-12">
+        <div class="absolute -right-24 -top-24 h-80 w-80 rounded-full {{ $roleStyles['panelSoft'] }}"></div>
+        <div class="absolute -bottom-24 -left-24 h-64 w-64 rounded-full {{ $roleStyles['panelSoft'] }}"></div>
+        <a href="{{ route('landing') }}" class="relative z-10 flex items-center gap-3 text-xl font-extrabold"><span class="flex h-9 w-9 items-center justify-center rounded-md bg-white"><x-logo size="27" /></span> UMatch</a>
         <div class="relative z-10 max-w-lg">
-            <p class="mb-4 text-sm font-bold uppercase tracking-[0.3em] text-amber-300">Platform kolaborasi</p>
-            <h1 class="text-5xl font-extrabold leading-tight">Temukan peluang. Bangun masa depan.</h1>
-            <p class="mt-6 text-lg leading-8 text-blue-100">Hubungkan UMKM, investor, dan customer dalam satu ekosistem yang saling menguatkan.</p>
+            <div class="mb-7 flex h-16 w-16 items-center justify-center rounded-2xl bg-white/20 backdrop-blur-sm"><x-icon :name="$roleStyles['icon']" size="31" /></div>
+            <h1 class="text-4xl font-extrabold leading-tight xl:text-5xl">Masuk sebagai {{ $role['label'] }}</h1>
+            <p class="mt-3 text-sm font-medium {{ $roleStyles['panelText'] }}">{{ $role['tagline'] }}</p>
+            <ul class="mt-7 space-y-3 text-sm {{ $roleStyles['panelText'] }}">
+                @foreach ($role['features'] as $feature)
+                    <li class="flex items-center gap-3"><x-icon name="check" size="17" /> {{ $feature }}</li>
+                @endforeach
+            </ul>
         </div>
-        <p class="relative z-10 text-sm text-blue-200">© {{ date('Y') }} UMatch</p>
+        <p class="relative z-10 text-xs {{ $roleStyles['panelText'] }}">Satu akun • Tiga peran • UMatch</p>
     </section>
 
-    <section class="flex items-center justify-center px-6 py-12 sm:px-12">
+    <section class="flex min-h-screen items-center justify-center px-6 py-10 sm:px-12 lg:px-16">
         <div class="w-full max-w-md">
-            <div class="mb-10 lg:hidden"><a href="{{ route('landing') }}" class="flex items-center gap-3 text-2xl font-extrabold"><x-logo size="42" /> UMatch</a></div>
-            <p class="text-sm font-bold uppercase tracking-[0.25em] text-[#0d4d96]">Selamat datang kembali</p>
-            <h2 class="mt-3 text-4xl font-extrabold tracking-tight">Masuk ke akunmu</h2>
-            <p class="mt-3 text-slate-500">Kelola aktivitas UMatch dengan aman dan mudah.</p>
-            <div class="mt-5 inline-flex items-center gap-2 rounded-full bg-blue-50 px-4 py-2 text-xs font-bold text-[#0d4d96]">
-                <span class="h-2 w-2 rounded-full bg-[#0d4d96]"></span>
-                Role: {{ $roleLabel }}
-                <a href="{{ route('roles.choose') }}" class="ml-1 underline underline-offset-2">Ubah</a>
-            </div>
+            <div class="mb-12 lg:hidden"><a href="{{ route('landing') }}" class="flex items-center gap-3 text-xl font-extrabold"><x-logo size="36" /> UMatch</a></div>
+            <a href="{{ route('roles.choose') }}" class="inline-flex items-center gap-2 text-sm font-bold {{ $roleStyles['accent'] }}"><x-icon name="arrow-left" size="16" /> Ganti peran</a>
+            <h2 class="mt-6 text-3xl font-extrabold tracking-tight">Selamat datang kembali!</h2>
+            <p class="mt-2 text-sm text-slate-500">Masuk sebagai <span class="font-bold {{ $roleStyles['accent'] }}">{{ $role['label'] }}</span> ke akun UMatch kamu.</p>
+            <div class="mt-5 inline-flex items-center gap-2 rounded-full {{ $roleStyles['accentSoft'] ?? 'bg-slate-100' }} px-4 py-2 text-xs font-bold {{ $roleStyles['accent'] }}"><span class="h-2 w-2 rounded-full {{ $roleStyles['accentBg'] }}"></span> Role: {{ $role['label'] }} <a href="{{ route('roles.choose') }}" class="ml-1 underline underline-offset-2">Ubah</a></div>
 
-            <a href="{{ route('auth.google') }}" class="mt-8 flex h-14 items-center justify-center gap-3 rounded-2xl border border-slate-200 bg-white font-bold shadow-sm transition hover:border-slate-300 hover:shadow-md">
-                <svg width="21" height="21" viewBox="0 0 24 24" aria-hidden="true"><path fill="#4285F4" d="M21.6 12.23c0-.7-.06-1.37-.18-2.02H12v3.82h5.38a4.6 4.6 0 0 1-1.99 3.02v2.51h3.22c1.88-1.73 2.99-4.28 2.99-7.33Z"/><path fill="#34A853" d="M12 22c2.7 0 4.96-.9 6.61-2.44l-3.22-2.51c-.9.6-2.05.96-3.39.96-2.61 0-4.82-1.76-5.62-4.13H3.05v2.59A9.99 9.99 0 0 0 12 22Z"/><path fill="#FBBC05" d="M6.38 13.88A6 6 0 0 1 6.06 12c0-.65.11-1.28.32-1.88V7.53H3.05A10 10 0 0 0 2 12c0 1.61.39 3.13 1.05 4.47l3.33-2.59Z"/><path fill="#EA4335" d="M12 5.98c1.47 0 2.79.5 3.83 1.5l2.87-2.87C16.95 2.91 14.7 2 12 2a9.99 9.99 0 0 0-8.95 5.53l3.33 2.59C7.18 7.74 9.39 5.98 12 5.98Z"/></svg>
+            <a href="{{ route('auth.google') }}" class="mt-7 flex h-12 items-center justify-center gap-3 rounded-xl border border-slate-200 bg-white text-sm font-bold shadow-sm transition hover:border-slate-300 hover:shadow-md">
+                <svg width="19" height="19" viewBox="0 0 24 24" aria-hidden="true"><path fill="#4285F4" d="M21.6 12.23c0-.7-.06-1.37-.18-2.02H12v3.82h5.38a4.6 4.6 0 0 1-1.99 3.02v2.51h3.22c1.88-1.73 2.99-4.28 2.99-7.33Z"/><path fill="#34A853" d="M12 22c2.7 0 4.96-.9 6.61-2.44l-3.22-2.51c-.9.6-2.05.96-3.39.96-2.61 0-4.82-1.76-5.62-4.13H3.05v2.59A9.99 9.99 0 0 0 12 22Z"/><path fill="#FBBC05" d="M6.38 13.88A6 6 0 0 1 6.06 12c0-.65.11-1.28.32-1.88V7.53H3.05A10 10 0 0 0 2 12c0 1.61.39 3.13 1.05 4.47l3.33-2.59Z"/><path fill="#EA4335" d="M12 5.98c1.47 0 2.79.5 3.83 1.5l2.87-2.87C16.95 2.91 14.7 2 12 2a9.99 9.99 0 0 0-8.95 5.53l3.33 2.59C7.18 7.74 9.39 5.98 12 5.98Z"/></svg>
                 Masuk / Daftar dengan Google
             </a>
+            <div class="my-4 flex items-center gap-4 text-xs font-bold tracking-widest text-slate-400"><div class="h-px flex-1 bg-slate-200"></div>ATAU<div class="h-px flex-1 bg-slate-200"></div></div>
 
-            <div class="my-8 flex items-center gap-4 text-xs font-bold tracking-widest text-slate-400"><div class="h-px flex-1 bg-slate-200"></div>ATAU<div class="h-px flex-1 bg-slate-200"></div></div>
-
-            <form id="login-form" action="{{ route('login.store') }}" method="POST" class="space-y-5">
-                @csrf
-                <div><label for="email" class="mb-2 block text-sm font-bold">Email</label><input id="email" name="email" type="email" value="{{ old('email') }}" autocomplete="email" required class="h-14 w-full rounded-2xl border border-slate-200 bg-white px-4 outline-none transition focus:border-[#0d4d96] focus:ring-4 focus:ring-blue-100" placeholder="nama@email.com"></div>
-                <div><div class="mb-2 flex justify-between"><label for="password" class="text-sm font-bold">Password</label><a href="#" class="text-sm font-bold text-[#0d4d96]">Lupa password?</a></div><input id="password" name="password" type="password" autocomplete="current-password" required class="h-14 w-full rounded-2xl border border-slate-200 bg-white px-4 outline-none transition focus:border-[#0d4d96] focus:ring-4 focus:ring-blue-100" placeholder="Masukkan password"></div>
-                <p id="login-error" class="hidden rounded-xl bg-red-50 px-4 py-3 text-sm font-medium text-red-700"></p>
-                <button type="submit" class="h-14 w-full rounded-2xl bg-[#0d4d96] font-bold text-white shadow-lg shadow-blue-900/20 transition hover:bg-blue-900 disabled:cursor-wait disabled:opacity-60">Masuk ke UMatch</button>
-            </form>
-            <p class="mt-8 text-center text-sm text-slate-500">Belum punya akun? <a href="{{ route('register') }}" class="font-bold text-[#0d4d96]">Daftar sekarang</a></p>
+            <div class="rounded-3xl border border-slate-200 bg-white p-6 shadow-sm sm:p-7">
+                <form id="login-form" action="{{ route('login.store') }}" method="POST" class="space-y-5">
+                    @csrf
+                    <div>
+                        <label for="email" class="mb-2 block text-xs font-medium text-slate-600">Email</label>
+                        <div class="relative"><x-icon name="mail" size="17" class="pointer-events-none absolute left-4 top-1/2 -translate-y-1/2 text-slate-400" /><input id="email" name="email" type="email" value="{{ old('email') }}" autocomplete="email" required class="h-12 w-full rounded-xl border border-slate-200 bg-slate-50 pl-11 pr-4 text-sm outline-none transition {{ $roleStyles['focus'] }} focus:ring-4" placeholder="nama@email.com"></div>
+                    </div>
+                    <div>
+                        <div class="mb-2 flex justify-between"><label for="password" class="text-xs font-medium text-slate-600">Password</label><a href="#" class="text-xs font-bold {{ $roleStyles['accent'] }}">Lupa password?</a></div>
+                        <div class="relative"><x-icon name="lock" size="17" class="pointer-events-none absolute left-4 top-1/2 -translate-y-1/2 text-slate-400" /><input id="password" name="password" type="password" autocomplete="current-password" required class="h-12 w-full rounded-xl border border-slate-200 bg-slate-50 pl-11 pr-4 text-sm outline-none transition {{ $roleStyles['focus'] }} focus:ring-4" placeholder="Masukkan password"></div>
+                    </div>
+                    <p id="login-error" class="hidden rounded-xl bg-red-50 px-4 py-3 text-sm font-medium text-red-700"></p>
+                    <button type="submit" class="h-12 w-full rounded-xl {{ $roleStyles['accentBg'] }} font-bold text-white shadow-lg shadow-slate-900/10 transition {{ $roleStyles['accentHover'] }} disabled:cursor-wait disabled:opacity-60">Masuk ke UMatch</button>
+                </form>
+                <p class="mt-5 border-t border-slate-100 pt-5 text-center text-sm text-slate-500">Belum punya akun? <a href="{{ route('register') }}" class="font-bold {{ $roleStyles['accent'] }}">Daftar sekarang</a></p>
+            </div>
         </div>
     </section>
 </main>

@@ -5,57 +5,52 @@
 @section('content')
 @php
     $slides = [
-        [
-            'theme' => 'mint',
-            'image' => 'https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?auto=format&fit=crop&w=900&q=85',
-            'icon' => '🛍️',
-            'title' => 'Temukan UMKM Lokal Terbaik',
-            'description' => 'Jelajahi ribuan produk dan toko UMKM asli Indonesia. Dari kuliner hingga kerajinan tangan — semuanya ada di sini.',
-        ],
-        [
-            'theme' => 'peach',
-            'image' => 'https://images.unsplash.com/photo-1556761175-b413da4baf72?auto=format&fit=crop&w=900&q=85',
-            'icon' => '🏪',
-            'title' => 'Kelola Usaha Lebih Mudah',
-            'description' => 'Catat transaksi, pantau stok, publikasikan ke media sosial sekaligus, dan terima tawaran investor — cukup dari satu aplikasi.',
-        ],
-        [
-            'theme' => 'blue',
-            'image' => 'https://images.unsplash.com/photo-1556740749-887f6717d7e4?auto=format&fit=crop&w=900&q=85',
-            'icon' => '💼',
-            'title' => 'Investasi di UMKM Berpotensi',
-            'description' => 'Temukan UMKM lokal dengan potensi tinggi. Lihat pitchdeck, data keuangan, dan kirim tawaran investasi langsung dari aplikasi.',
-        ],
+        ['theme' => 'mint', 'image' => 'https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?auto=format&fit=crop&w=1100&q=85', 'icon' => 'bag', 'eyebrow' => 'Customer', 'title' => 'Temukan UMKM lokal terbaik', 'description' => 'Jelajahi produk pilihan dari pelaku usaha lokal dan temukan cerita di balik setiap karya.'],
+        ['theme' => 'peach', 'image' => 'https://images.unsplash.com/photo-1556761175-b413da4baf72?auto=format&fit=crop&w=1100&q=85', 'icon' => 'store', 'eyebrow' => 'UMKM', 'title' => 'Kelola usaha lebih mudah', 'description' => 'Atur produk, pantau penjualan, dan bangun koneksi bisnis dari satu ruang kerja digital.'],
+        ['theme' => 'blue', 'image' => 'https://images.unsplash.com/photo-1556740749-887f6717d7e4?auto=format&fit=crop&w=1100&q=85', 'icon' => 'trend', 'eyebrow' => 'Investor', 'title' => 'Investasi di UMKM berpotensi', 'description' => 'Temukan peluang yang tepat melalui profil usaha, data finansial, dan insight yang lebih terpercaya.'],
     ];
 @endphp
 
-<main id="onboarding" class="min-h-screen w-full overflow-x-hidden bg-[#e4f8f7]">
-    <section class="min-h-screen w-full overflow-hidden bg-[#e4f8f7]" data-onboarding-shell>
-        <header class="flex h-[66px] items-center justify-between border-b border-slate-100 bg-white px-4 sm:px-8 lg:px-12">
-            <div class="flex items-center gap-2.5">
-                <div class="flex h-8 w-8 items-center justify-center rounded-[10px] border border-slate-200 bg-white shadow-sm"><x-logo size="23" /></div>
-                <div class="leading-none"><p class="text-[11px] font-extrabold text-slate-800">UMiKA</p><p class="mt-1 text-[6px] text-slate-400">Aplikasi Manajemen & Digitalisasi UMKM</p></div>
-            </div>
-            <span class="text-[8px] text-slate-400">Platform UMKM Digital</span>
+<main id="onboarding" class="min-h-screen w-full overflow-hidden bg-slate-50">
+    <section class="relative min-h-screen overflow-hidden transition-colors duration-500" data-onboarding-shell>
+        <div class="absolute -right-40 -top-40 h-96 w-96 rounded-full bg-white/60 blur-3xl"></div>
+        <header class="relative z-10 flex h-20 items-center justify-between border-b border-white/70 bg-white/70 px-6 backdrop-blur-xl sm:px-10 lg:px-16">
+            <a href="{{ route('landing') }}" class="flex items-center gap-3">
+                <span class="flex h-10 w-10 items-center justify-center rounded-xl bg-white shadow-sm ring-1 ring-slate-200"><x-logo size="28" /></span>
+                <span><span class="block text-base font-extrabold tracking-tight text-slate-900">UMatch</span><span class="block text-[10px] font-medium text-slate-400">Satu ekosistem, banyak peluang</span></span>
+            </a>
+            <span class="hidden rounded-full border border-slate-200 bg-white/70 px-4 py-2 text-xs font-semibold text-slate-500 sm:inline-flex">Kenali platform kami</span>
         </header>
 
-        <div class="relative flex min-h-[calc(100vh-66px)] flex-col px-4 pb-6 pt-3 sm:px-8 lg:px-12" data-onboarding-content>
-            <div class="flex items-center justify-between text-[10px] font-medium" data-navigation></div>
-
-            <div class="flex flex-1 flex-col items-center justify-center pb-28 pt-10 sm:pb-32 sm:pt-12 lg:pt-8" data-slide-content>
-                <div class="relative mx-auto h-[180px] w-full max-w-[350px] overflow-hidden rounded-[18px] bg-slate-200 shadow-sm sm:h-[205px] lg:h-[min(38vh,420px)] lg:w-[min(72vw,1000px)] lg:max-w-none lg:rounded-[24px]">
-                    <img data-slide-image class="h-full w-full object-cover" alt="Ilustrasi UMatch" loading="eager">
-                    <div class="absolute inset-0 bg-gradient-to-t from-black/10 to-transparent"></div>
+        <div class="relative z-10 mx-auto flex min-h-[calc(100vh-5rem)] max-w-7xl flex-col justify-center gap-10 px-6 py-10 sm:px-10 lg:grid lg:grid-cols-[1.15fr_.85fr] lg:items-center lg:gap-20 lg:px-16 lg:py-16" data-onboarding-content>
+            <div class="relative order-2 lg:order-1">
+                <div class="absolute -inset-4 rounded-[2.5rem] bg-white/50 blur-xl"></div>
+                <div class="relative h-[280px] overflow-hidden rounded-[2rem] bg-slate-200 shadow-2xl shadow-slate-900/10 sm:h-[390px] lg:h-[min(65vh,610px)]">
+                    <img data-slide-image class="h-full w-full object-cover transition duration-500" alt="Ilustrasi UMatch" loading="eager">
+                    <div class="absolute inset-0 bg-gradient-to-t from-slate-950/50 via-transparent to-slate-950/10"></div>
+                    <div class="absolute bottom-6 left-6 right-6 flex items-end justify-between text-white sm:bottom-8 sm:left-8 sm:right-8">
+                        <span data-slide-eyebrow class="rounded-full border border-white/30 bg-white/15 px-4 py-2 text-xs font-bold backdrop-blur-md"></span>
+                        <span class="text-xs font-semibold text-white/70">UMatch 01—03</span>
+                    </div>
                 </div>
-                <div data-slide-icon class="mx-auto mt-4 flex h-11 w-11 items-center justify-center rounded-xl bg-white text-xl shadow-[0_2px_8px_rgba(0,0,0,.12)]"></div>
-                <h1 data-slide-title class="mx-auto mt-4 max-w-[320px] text-center text-[15px] font-extrabold leading-6 text-slate-800 sm:text-base"></h1>
-                <p data-slide-description class="mx-auto mt-1.5 max-w-[330px] text-center text-[10px] leading-[1.7] text-slate-500 sm:text-[11px]"></p>
             </div>
 
-            <div class="absolute bottom-6 left-4 right-4 sm:left-8 sm:right-8 lg:left-1/2 lg:right-auto lg:w-[min(90%,680px)] lg:-translate-x-1/2">
-                <div class="mb-3 flex justify-center gap-1.5" data-dots></div>
-                <button type="button" data-next class="h-11 w-full rounded-xl text-[10px] font-extrabold text-white shadow-lg transition hover:brightness-95 active:scale-[.99] sm:h-12 sm:text-[11px]"></button>
-                <a data-guest href="{{ route('roles.choose') }}" class="mt-3 block text-center text-[9px] text-slate-400 underline decoration-slate-300 underline-offset-2">Coba dulu tanpa daftar (Mode Tamu)</a>
+            <div class="order-1 flex flex-col items-center text-center lg:order-2 lg:items-start lg:text-left">
+                <div data-slide-icon class="flex h-14 w-14 items-center justify-center rounded-2xl bg-white shadow-lg ring-1 ring-slate-200"></div>
+                <p class="mt-7 text-xs font-extrabold uppercase tracking-[0.3em] text-slate-400">Satu akun untuk banyak kemungkinan</p>
+                <h1 data-slide-title class="mt-4 max-w-xl text-4xl font-extrabold leading-[1.08] tracking-tight text-slate-900 sm:text-5xl lg:text-6xl"></h1>
+                <p data-slide-description class="mt-6 max-w-lg text-sm leading-7 text-slate-500 sm:text-base"></p>
+
+                <div class="mt-9 w-full max-w-lg">
+                    <div class="mb-4 flex items-center justify-between text-xs font-bold text-slate-400"><span data-slide-count>01 / 03</span><span>Mulai perjalananmu</span></div>
+                    <div class="h-1.5 overflow-hidden rounded-full bg-white/80"><div data-progress class="h-full rounded-full transition-all duration-500"></div></div>
+                </div>
+
+                <div class="mt-8 flex w-full max-w-lg flex-col gap-4 sm:flex-row sm:items-center">
+                    <button type="button" data-next class="h-14 flex-1 rounded-2xl px-6 text-sm font-extrabold text-white shadow-lg transition hover:-translate-y-0.5 hover:brightness-105 active:translate-y-0"></button>
+                    <button type="button" data-skip class="rounded-2xl px-5 py-3 text-sm font-bold text-slate-400 transition hover:bg-white/70 hover:text-slate-700">Lewati</button>
+                </div>
+                <div class="mt-7 flex gap-2" data-dots aria-label="Progress onboarding"></div>
             </div>
         </div>
     </section>
@@ -70,39 +65,43 @@ const shell = document.querySelector('[data-onboarding-shell]');
 const content = document.querySelector('[data-onboarding-content]');
 const image = document.querySelector('[data-slide-image]');
 const icon = document.querySelector('[data-slide-icon]');
+const eyebrow = document.querySelector('[data-slide-eyebrow]');
 const title = document.querySelector('[data-slide-title]');
 const description = document.querySelector('[data-slide-description]');
-const navigation = document.querySelector('[data-navigation]');
+const count = document.querySelector('[data-slide-count]');
+const progress = document.querySelector('[data-progress]');
 const dots = document.querySelector('[data-dots]');
 const next = document.querySelector('[data-next]');
-
+const iconMarkup = {
+    bag: '<svg width="27" height="27" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 8h12l-1 12H7z"/><path d="M9 8a3 3 0 0 1 6 0"/></svg>',
+    store: '<svg width="27" height="27" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 9l1.5-5h15L21 9"/><path d="M3 9h18v1.5a3 3 0 0 1-6 0 3 3 0 0 1-6 0 3 3 0 0 1-6 0z"/><path d="M5 13v7h14v-7"/><path d="M10 20v-4h4v4"/></svg>',
+    trend: '<svg width="27" height="27" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 17l6-6 4 4 8-8"/><path d="M14 7h7v7"/></svg>',
+};
 const themeClasses = {
-    mint: { background: 'bg-[#e4f8f7]', button: 'bg-[#00afa5]', active: 'bg-[#00afa5]', text: 'text-[#00afa5]' },
-    peach: { background: 'bg-[#fff1ec]', button: 'bg-[#ff6946]', active: 'bg-[#ff6946]', text: 'text-[#ff6946]' },
-    blue: { background: 'bg-[#edf5ff]', button: 'bg-[#205a98]', active: 'bg-[#205a98]', text: 'text-[#205a98]' },
+    mint: { background: 'bg-[#e9faf7]', button: 'bg-[#00a99d]', text: 'text-[#00a99d]', icon: 'text-[#00a99d]', progress: 'bg-[#00a99d]' },
+    peach: { background: 'bg-[#fff3ee]', button: 'bg-[#ff6946]', text: 'text-[#ff6946]', icon: 'text-[#ff6946]', progress: 'bg-[#ff6946]' },
+    blue: { background: 'bg-[#eef5ff]', button: 'bg-[#205a98]', text: 'text-[#205a98]', icon: 'text-[#205a98]', progress: 'bg-[#205a98]' },
 };
 
 function renderSlide() {
     const slide = onboardingSlides[activeSlide];
     const theme = themeClasses[slide.theme];
-    shell.className = `min-h-screen w-full overflow-hidden ${theme.background}`;
-    content.className = `relative flex min-h-[calc(100vh-66px)] flex-col px-4 pb-6 pt-3 sm:px-8 lg:px-12 ${theme.background}`;
-    image.classList.remove('opacity-0');
+    shell.className = `relative min-h-screen overflow-hidden transition-colors duration-500 ${theme.background}`;
     image.src = slide.image;
-    image.onerror = () => { image.classList.add('opacity-0'); };
-    icon.textContent = slide.icon;
+    eyebrow.textContent = slide.eyebrow;
+    icon.innerHTML = iconMarkup[slide.icon];
+    icon.className = `flex h-14 w-14 items-center justify-center rounded-2xl bg-white shadow-lg ring-1 ring-slate-200 ${theme.icon}`;
     title.textContent = slide.title;
     description.textContent = slide.description;
-    navigation.innerHTML = activeSlide === 0
-        ? `<span></span><button type="button" data-skip class="text-slate-400 hover:text-slate-600">Lewati</button>`
-        : `<button type="button" data-back class="${theme.text}">←&nbsp; Kembali</button><button type="button" data-skip class="text-slate-400 hover:text-slate-600">Lewati</button>`;
-    next.textContent = activeSlide === onboardingSlides.length - 1 ? 'Mulai Sekarang →' : 'Lanjut';
-    next.className = `h-11 w-full rounded-xl text-[10px] font-extrabold text-white shadow-lg transition hover:brightness-95 active:scale-[.99] sm:h-12 sm:text-[11px] ${theme.button}`;
-    dots.innerHTML = onboardingSlides.map((item, index) => `<span class="h-1.5 rounded-full transition-all ${index === activeSlide ? `w-4 ${theme.active}` : 'w-1.5 bg-slate-300/70'}"></span>`).join('');
-    document.querySelector('[data-skip]').addEventListener('click', () => { window.location.href = @json(route('roles.choose')); });
-    if (document.querySelector('[data-back]')) document.querySelector('[data-back]').addEventListener('click', () => { activeSlide--; renderSlide(); });
+    count.textContent = `${String(activeSlide + 1).padStart(2, '0')} / ${String(onboardingSlides.length).padStart(2, '0')}`;
+    progress.className = `h-full rounded-full transition-all duration-500 ${theme.progress}`;
+    progress.style.width = `${((activeSlide + 1) / onboardingSlides.length) * 100}%`;
+    next.textContent = activeSlide === onboardingSlides.length - 1 ? 'Mulai Sekarang' : 'Lanjutkan';
+    next.className = `h-14 flex-1 rounded-2xl px-6 text-sm font-extrabold text-white shadow-lg transition hover:-translate-y-0.5 hover:brightness-105 active:translate-y-0 ${theme.button}`;
+    dots.innerHTML = onboardingSlides.map((item, index) => `<span class="h-2 rounded-full transition-all ${index === activeSlide ? `w-8 ${theme.button}` : 'w-2 bg-slate-300'}"></span>`).join('');
 }
 
+document.querySelector('[data-skip]').addEventListener('click', () => { window.location.href = @json(route('roles.choose')); });
 next.addEventListener('click', () => {
     if (activeSlide === onboardingSlides.length - 1) {
         window.location.href = @json(route('roles.choose'));
@@ -111,7 +110,6 @@ next.addEventListener('click', () => {
     activeSlide++;
     renderSlide();
 });
-
 renderSlide();
 </script>
 @endpush
