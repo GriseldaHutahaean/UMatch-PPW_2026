@@ -21,7 +21,6 @@ class DatabaseSeeder extends Seeder
         }
 
         $users = [
-            ['nama' => 'Admin UMatch', 'email' => 'admin@umatch.test', 'role' => 'admin'],
             ['nama' => 'Customer UMatch', 'email' => 'customer@umatch.test', 'role' => 'customer'],
             ['nama' => 'UMKM UMatch', 'email' => 'umkm@umatch.test', 'role' => 'umkm'],
             ['nama' => 'Investor UMatch', 'email' => 'investor@umatch.test', 'role' => 'investor'],

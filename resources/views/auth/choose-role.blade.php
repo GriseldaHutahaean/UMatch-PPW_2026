@@ -5,43 +5,52 @@
 @section('content')
 @php
     $roleStyles = [
-        'customer' => ['background' => 'bg-[#e8faf7]', 'accent' => 'text-[#00a99d]', 'border' => 'border-[#00afa5]', 'button' => 'bg-[#00a99d]', 'icon' => 'bag', 'description' => 'Sumber pendapatan dan pelanggan untuk UMKM lokal.'],
-        'umkm' => ['background' => 'bg-[#fff1ec]', 'accent' => 'text-[#ff6946]', 'border' => 'border-[#ff6946]', 'button' => 'bg-[#ff6946]', 'icon' => 'store', 'description' => 'Kembangkan bisnis dan jangkau peluang baru.'],
-        'investor' => ['background' => 'bg-[#edf5ff]', 'accent' => 'text-[#205a98]', 'border' => 'border-[#205a98]', 'button' => 'bg-[#205a98]', 'icon' => 'trend', 'description' => 'Temukan peluang investasi yang profesional dan terukur.'],
+        'customer' => ['iconBackground' => 'bg-teal-50', 'accent' => 'text-teal-700', 'selectedBorder' => 'border-teal-400', 'selectedBackground' => 'bg-teal-50/80', 'selectedRing' => 'ring-teal-100'],
+        'umkm' => ['iconBackground' => 'bg-orange-50', 'accent' => 'text-orange-700', 'selectedBorder' => 'border-orange-400', 'selectedBackground' => 'bg-orange-50/80', 'selectedRing' => 'ring-orange-100'],
+        'investor' => ['iconBackground' => 'bg-blue-50', 'accent' => 'text-blue-700', 'selectedBorder' => 'border-blue-400', 'selectedBackground' => 'bg-blue-50/80', 'selectedRing' => 'ring-blue-100'],
+    ];
+    $roleDetails = [
+        'customer' => 'Jelajahi produk lokal, simpan favorit, dan pantau pesanan dari satu akun.',
+        'umkm' => 'Kelola katalog, stok, dan penjualan; lalu bangun koneksi dengan pelanggan serta investor.',
+        'investor' => 'Pelajari profil dan performa UMKM, lalu temukan peluang sesuai profil risikomu.',
     ];
 @endphp
 
-<main class="min-h-screen bg-[linear-gradient(135deg,#f8fbff_0%,#f4faf8_48%,#fff9f5_100%)] px-5 py-7 text-slate-800 sm:px-8 lg:px-12">
+<main class="min-h-screen w-full bg-slate-50 px-4 py-8 text-slate-800 sm:px-8 lg:px-12">
     <header class="mx-auto flex w-full max-w-6xl items-center justify-between">
-        <a href="{{ route('landing') }}" class="flex items-center gap-3"><span class="flex h-10 w-10 items-center justify-center rounded-xl bg-white shadow-sm ring-1 ring-slate-200"><x-logo size="28" /></span><span class="text-xl font-extrabold tracking-tight">UMatch</span></a>
-        <div class="flex items-center gap-3"><span class="hidden text-xs font-semibold text-slate-400 sm:inline">Langkah 1 dari 2</span><span class="h-1.5 w-16 overflow-hidden rounded-full bg-slate-200"><span class="block h-full w-1/2 rounded-full bg-[#205a98]"></span></span></div>
+        <a href="{{ route('landing') }}" class="flex items-center gap-2 text-xl font-extrabold"><x-logo size="34" /> UMatch</a>
+        <span class="text-xs font-semibold text-slate-400">Langkah 1 dari 2</span>
     </header>
 
-    <section class="mx-auto w-full max-w-6xl py-14 sm:py-20">
-        <div class="mx-auto max-w-2xl text-center">
-            <p class="text-xs font-extrabold uppercase tracking-[0.3em] text-[#205a98]">Pilih pengalamanmu</p>
-            <h1 class="mt-4 text-4xl font-extrabold tracking-tight text-slate-900 sm:text-5xl">Kamu menggunakan UMatch sebagai apa?</h1>
-            <p class="mx-auto mt-5 max-w-xl text-sm leading-7 text-slate-500 sm:text-base">Pilih role yang paling sesuai untuk menyesuaikan pengalamanmu. Satu akun tetap bisa digunakan untuk tiga peran.</p>
-        </div>
+    <section class="mx-auto w-full max-w-6xl py-12 text-center sm:py-16">
+        <p class="text-xs font-extrabold uppercase tracking-[0.25em] text-[#0d4d96]">UMATCH</p>
+        <h1 class="mt-3 text-3xl font-extrabold tracking-tight sm:text-4xl">Kamu menggunakan UMatch sebagai apa?</h1>
+        <p class="mx-auto mt-3 max-w-xl text-sm leading-6 text-slate-500 sm:text-base">Pilih role yang paling sesuai untuk menyesuaikan pengalamanmu. Satu akun tetap bisa digunakan untuk tiga peran.</p>
 
-        <form id="role-form" action="{{ route('roles.select') }}" method="POST" class="mt-12">
+        <form id="role-form" action="{{ route('roles.select') }}" method="POST" class="mt-10">
             @csrf
             <div class="grid gap-5 md:grid-cols-3">
                 @foreach (config('umatch.roles') as $key => $role)
                     @php($style = $roleStyles[$key])
-                    <label class="group relative cursor-pointer rounded-[2rem] border-2 {{ $style['border'] }} bg-white p-7 text-left shadow-sm transition duration-300 hover:-translate-y-1 hover:shadow-xl {{ $selectedRole === $key ? 'ring-2 ring-slate-200 ring-offset-2' : '' }}">
-                        <input type="radio" name="role" value="{{ $key }}" class="peer sr-only" @checked($selectedRole === $key)>
-                        <span class="absolute right-7 top-7 hidden h-7 w-7 items-center justify-center rounded-full {{ $style['button'] }} text-white peer-checked:flex"><x-icon name="check" size="15" /></span>
-                        <div class="flex h-16 w-16 items-center justify-center rounded-2xl {{ $style['background'] }} {{ $style['accent'] }}"><x-icon :name="$style['icon']" size="30" /></div>
-                        <div class="mt-8"><p class="text-xs font-bold uppercase tracking-[0.2em] {{ $style['accent'] }}">{{ $role['label'] }}</p><h2 class="mt-2 text-2xl font-extrabold text-slate-900">{{ $role['subtitle'] }}</h2></div>
-                        <p class="mt-4 text-sm leading-6 text-slate-500">{{ $style['description'] }}</p>
-                        <span class="mt-8 inline-flex items-center gap-2 text-sm font-bold {{ $style['accent'] }}">Lanjut sebagai {{ $role['label'] }} <span class="transition group-hover:translate-x-1">→</span></span>
+                    <label data-role-card data-role="{{ $key }}" class="group relative flex min-h-[270px] cursor-pointer flex-col rounded-3xl border-2 p-6 text-left shadow-sm transition duration-200 hover:-translate-y-1 hover:shadow-lg focus-within:ring-4 focus-within:ring-slate-100 {{ $selectedRole === $key ? $style['selectedBorder'].' '.$style['selectedBackground'].' ring-4 '.$style['selectedRing'] : 'border-slate-200 bg-white hover:border-slate-300' }}">
+                        <input type="radio" name="role" value="{{ $key }}" class="peer sr-only" aria-label="Pilih {{ $role['label'] }}" @checked($selectedRole === $key)>
+                        <div class="flex h-12 w-12 items-center justify-center rounded-2xl {{ $style['iconBackground'] }} {{ $style['accent'] }}">
+                            <x-icon :name="$role['icon']" size="25" />
+                        </div>
+                        <span data-selected-badge class="absolute right-5 top-5 items-center gap-1.5 rounded-full px-3 py-1 text-[10px] font-extrabold {{ $selectedRole === $key ? 'inline-flex' : 'hidden' }} {{ $style['iconBackground'] }} {{ $style['accent'] }}">
+                            <span aria-hidden="true">✓</span> Dipilih
+                        </span>
+                        <p class="mt-5 text-[10px] font-extrabold uppercase tracking-[0.2em] {{ $style['accent'] }}">{{ $role['label'] }}</p>
+                        <h2 class="mt-2 text-lg font-extrabold leading-6 text-slate-900">{{ $role['subtitle'] }}</h2>
+                        <p class="mt-2 text-sm leading-6 text-slate-500">{{ $roleDetails[$key] }}</p>
+                        <span class="mt-auto inline-flex pt-5 text-sm font-bold {{ $style['accent'] }}">Lanjut sebagai {{ $role['label'] }} <span class="ml-2 transition group-hover:translate-x-1" aria-hidden="true">→</span></span>
                     </label>
                 @endforeach
             </div>
 
-            @error('role')<p class="mt-4 text-center text-sm font-medium text-red-600">{{ $message }}</p>@enderror
-            <div class="mt-12 flex flex-col items-center gap-4"><button type="submit" class="h-14 w-full max-w-md rounded-2xl bg-[#205a98] px-8 text-sm font-extrabold text-white shadow-lg shadow-blue-900/15 transition hover:-translate-y-0.5 hover:bg-[#174777] disabled:cursor-not-allowed disabled:opacity-40" disabled data-role-submit>Lanjut ke Login</button><p class="text-xs text-slate-400">Kamu bisa mengganti role kapan saja.</p></div>
+            @error('role')<p class="mt-4 text-sm font-medium text-red-600">{{ $message }}</p>@enderror
+            <p data-role-summary aria-live="polite" class="mx-auto mt-6 min-h-5 text-sm font-semibold text-slate-500">Pilih salah satu role untuk melanjutkan.</p>
+            <button type="submit" class="mt-5 h-14 w-full max-w-md rounded-2xl bg-[#0d4d96] px-8 font-bold text-white shadow-lg shadow-blue-900/20 transition hover:bg-blue-900 disabled:cursor-not-allowed disabled:opacity-50" disabled data-role-submit>{{ auth()->check() ? 'Lanjutkan untuk Menambahkan Role' : 'Lanjut ke Login' }}</button>
         </form>
     </section>
 </main>
@@ -51,17 +60,44 @@
 <script>
 const roleForm = document.getElementById('role-form');
 const roleSubmit = document.querySelector('[data-role-submit]');
-const roleCards = [...roleForm.querySelectorAll('label')];
+const roleSummary = document.querySelector('[data-role-summary]');
+const roleCards = [...roleForm.querySelectorAll('[data-role-card]')];
+const roleLabels = { customer: 'Customer', umkm: 'UMKM', investor: 'Investor' };
+const selectedCardClasses = {
+    customer: ['border-teal-400', 'bg-teal-50/80', 'ring-teal-100'],
+    umkm: ['border-orange-400', 'bg-orange-50/80', 'ring-orange-100'],
+    investor: ['border-blue-400', 'bg-blue-50/80', 'ring-blue-100'],
+};
+const isAddingRole = @json(auth()->check());
 
 function updateSelectedRole() {
     const selected = roleForm.querySelector('input[name="role"]:checked');
     roleSubmit.disabled = !selected;
+
     roleCards.forEach((card) => {
-        const input = card.querySelector('input');
-        card.classList.toggle('ring-2', input.checked);
-        card.classList.toggle('ring-slate-200', input.checked);
-        card.classList.toggle('ring-offset-2', input.checked);
+        const isSelected = card.querySelector('input').checked;
+        const selectedBadge = card.querySelector('[data-selected-badge]');
+
+        card.classList.toggle('border-slate-200', !isSelected);
+        card.classList.toggle('bg-white', !isSelected);
+        card.classList.toggle('hover:border-slate-300', !isSelected);
+        card.classList.toggle('ring-4', isSelected);
+        card.classList.toggle('shadow-md', isSelected);
+        card.classList.toggle('shadow-sm', !isSelected);
+        selectedCardClasses[card.dataset.role].forEach((className) => card.classList.toggle(className, isSelected));
+        selectedBadge.classList.toggle('inline-flex', isSelected);
+        selectedBadge.classList.toggle('hidden', !isSelected);
     });
+
+    if (selected) {
+        const roleLabel = roleLabels[selected.value];
+        roleSummary.textContent = `Role aktif yang dipilih: ${roleLabel}`;
+        roleSubmit.textContent = isAddingRole ? `Tambahkan role ${roleLabel}` : `Lanjut sebagai ${roleLabel}`;
+        return;
+    }
+
+    roleSummary.textContent = 'Pilih salah satu role untuk melanjutkan.';
+    roleSubmit.textContent = isAddingRole ? 'Lanjutkan untuk Menambahkan Role' : 'Lanjut ke Login';
 }
 
 roleForm.querySelectorAll('input[name="role"]').forEach((input) => input.addEventListener('change', updateSelectedRole));

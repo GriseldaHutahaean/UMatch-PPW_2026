@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Role;
 use App\Models\User;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\Auth;
@@ -21,6 +20,9 @@ class SocialAuthController extends Controller
         $user = User::query()->where('google_id', $googleUser->getId())
             ->orWhere('email', $googleUser->getEmail())
             ->first();
+        $selectedRole = session('selected_role', 'customer');
+        $roleName = array_key_exists($selectedRole, config('umatch.roles', [])) ? $selectedRole : 'customer';
+        session()->put('selected_role', $roleName);
 
         if ($user === null) {
             $user = User::query()->create([
@@ -30,11 +32,6 @@ class SocialAuthController extends Controller
                 'foto_profil' => $googleUser->getAvatar(),
                 'status_akun' => 'aktif',
             ]);
-
-            $selectedRole = session('selected_role', 'customer');
-            $roleName = array_key_exists($selectedRole, config('umatch.roles', [])) ? $selectedRole : 'customer';
-            $role = Role::query()->firstOrCreate(['nama_role' => $roleName]);
-            $user->roles()->attach($role->getKey(), ['tanggal_aktif' => now()]);
         } elseif ($user->google_id !== $googleUser->getId()) {
             $user->forceFill([
                 'google_id' => $googleUser->getId(),
@@ -42,7 +39,17 @@ class SocialAuthController extends Controller
             ])->save();
         }
 
-        Auth::login($user, true);
+        Auth::login($user);
+
+        $profileExists = match ($roleName) {
+            'customer' => $user->customerProfile()->exists(),
+            'umkm' => $user->umkmProfile()->exists(),
+            'investor' => $user->investorProfile()->exists(),
+        };
+
+        if (! $user->hasRole($roleName) || ! $profileExists) {
+            return redirect()->route('register');
+        }
 
         return redirect()->intended(route('dashboard'));
     }

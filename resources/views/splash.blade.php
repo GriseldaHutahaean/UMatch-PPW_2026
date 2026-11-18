@@ -44,7 +44,17 @@
 setTimeout(() => {
     const splash = document.getElementById('splash');
     splash.classList.add('opacity-0');
-    setTimeout(() => { window.location.href = @json(auth()->check() ? route('dashboard') : route('onboarding')); }, 500);
+    setTimeout(() => {
+        let destination = @json(auth()->check() ? route('dashboard') : route('onboarding'));
+        try {
+            if (!@json(auth()->check()) && window.localStorage.getItem('umatch_onboarding_complete') === '1') {
+                destination = @json(route('roles.choose'));
+            }
+        } catch (error) {
+            // Keep the onboarding flow available when browser storage is unavailable.
+        }
+        window.location.href = destination;
+    }, 500);
 }, 1800);
 </script>
 @endpush

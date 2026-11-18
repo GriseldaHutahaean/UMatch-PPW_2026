@@ -25,4 +25,13 @@ return [
             'icon' => 'trend',
         ],
     ],
+    'internal_roles' => [
+        'admin' => [
+            'label' => 'Admin',
+            'subtitle' => 'Kelola platform & operasional',
+            'tagline' => 'Administrator UMatch',
+            'features' => ['Kelola pengguna & akses', 'Pantau aktivitas platform', 'Mengatur kebijakan & promosi'],
+            'icon' => 'shield',
+        ],
+    ],
 ];

@@ -5,6 +5,7 @@ namespace App\Models;
 use Database\Factories\UserFactory;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 
@@ -25,6 +26,21 @@ class User extends Authenticatable
     {
         return $this->belongsToMany(Role::class, 'user_roles', 'user_id', 'role_id')
             ->withPivot('tanggal_aktif');
+    }
+
+    public function customerProfile(): HasOne
+    {
+        return $this->hasOne(CustomerProfile::class, 'user_id', 'user_id');
+    }
+
+    public function umkmProfile(): HasOne
+    {
+        return $this->hasOne(UmkmProfile::class, 'user_id', 'user_id');
+    }
+
+    public function investorProfile(): HasOne
+    {
+        return $this->hasOne(InvestorProfile::class, 'user_id', 'user_id');
     }
 
     public function hasRole(string $role): bool
