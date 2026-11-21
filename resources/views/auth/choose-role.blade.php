@@ -5,9 +5,9 @@
 @section('content')
 @php
     $roleStyles = [
-        'customer' => ['iconBackground' => 'bg-teal-50', 'accent' => 'text-teal-700', 'selectedBorder' => 'border-teal-400', 'selectedBackground' => 'bg-teal-50/80', 'selectedRing' => 'ring-teal-100'],
-        'umkm' => ['iconBackground' => 'bg-orange-50', 'accent' => 'text-orange-700', 'selectedBorder' => 'border-orange-400', 'selectedBackground' => 'bg-orange-50/80', 'selectedRing' => 'ring-orange-100'],
-        'investor' => ['iconBackground' => 'bg-blue-50', 'accent' => 'text-blue-700', 'selectedBorder' => 'border-blue-400', 'selectedBackground' => 'bg-blue-50/80', 'selectedRing' => 'ring-blue-100'],
+        'customer' => ['iconBackground' => 'bg-emerald-50', 'accent' => 'text-emerald-700', 'roleBorder' => 'border-emerald-300', 'selectedBorder' => 'border-emerald-500', 'selectedBackground' => 'bg-emerald-50/80', 'selectedRing' => 'ring-emerald-100'],
+        'umkm' => ['iconBackground' => 'bg-orange-50', 'accent' => 'text-orange-700', 'roleBorder' => 'border-orange-300', 'selectedBorder' => 'border-orange-500', 'selectedBackground' => 'bg-orange-50/80', 'selectedRing' => 'ring-orange-100'],
+        'investor' => ['iconBackground' => 'bg-blue-50', 'accent' => 'text-blue-700', 'roleBorder' => 'border-blue-300', 'selectedBorder' => 'border-blue-500', 'selectedBackground' => 'bg-blue-50/80', 'selectedRing' => 'ring-blue-100'],
     ];
     $roleDetails = [
         'customer' => 'Jelajahi produk lokal, simpan favorit, dan pantau pesanan dari satu akun.',
@@ -32,7 +32,7 @@
             <div class="grid gap-5 md:grid-cols-3">
                 @foreach (config('umatch.roles') as $key => $role)
                     @php($style = $roleStyles[$key])
-                    <label data-role-card data-role="{{ $key }}" class="group relative flex min-h-[270px] cursor-pointer flex-col rounded-3xl border-2 p-6 text-left shadow-sm transition duration-200 hover:-translate-y-1 hover:shadow-lg focus-within:ring-4 focus-within:ring-slate-100 {{ $selectedRole === $key ? $style['selectedBorder'].' '.$style['selectedBackground'].' ring-4 '.$style['selectedRing'] : 'border-slate-200 bg-white hover:border-slate-300' }}">
+                    <label data-role-card data-role="{{ $key }}" class="group relative flex min-h-[270px] cursor-pointer flex-col rounded-3xl border-2 p-6 text-left shadow-sm transition duration-200 hover:-translate-y-1 hover:shadow-lg focus-within:ring-4 focus-within:ring-slate-100 {{ $style['roleBorder'] }} {{ $selectedRole === $key ? $style['selectedBorder'].' '.$style['selectedBackground'].' ring-4 '.$style['selectedRing'] : 'bg-white' }}">
                         <input type="radio" name="role" value="{{ $key }}" class="peer sr-only" aria-label="Pilih {{ $role['label'] }}" @checked($selectedRole === $key)>
                         <div class="flex h-12 w-12 items-center justify-center rounded-2xl {{ $style['iconBackground'] }} {{ $style['accent'] }}">
                             <x-icon :name="$role['icon']" size="25" />
@@ -64,7 +64,7 @@ const roleSummary = document.querySelector('[data-role-summary]');
 const roleCards = [...roleForm.querySelectorAll('[data-role-card]')];
 const roleLabels = { customer: 'Customer', umkm: 'UMKM', investor: 'Investor' };
 const selectedCardClasses = {
-    customer: ['border-teal-400', 'bg-teal-50/80', 'ring-teal-100'],
+    customer: ['border-emerald-500', 'bg-emerald-50/80', 'ring-emerald-100'],
     umkm: ['border-orange-400', 'bg-orange-50/80', 'ring-orange-100'],
     investor: ['border-blue-400', 'bg-blue-50/80', 'ring-blue-100'],
 };
@@ -78,9 +78,7 @@ function updateSelectedRole() {
         const isSelected = card.querySelector('input').checked;
         const selectedBadge = card.querySelector('[data-selected-badge]');
 
-        card.classList.toggle('border-slate-200', !isSelected);
         card.classList.toggle('bg-white', !isSelected);
-        card.classList.toggle('hover:border-slate-300', !isSelected);
         card.classList.toggle('ring-4', isSelected);
         card.classList.toggle('shadow-md', isSelected);
         card.classList.toggle('shadow-sm', !isSelected);
