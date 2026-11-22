@@ -59,9 +59,9 @@
     </header>
 
     <div class="mx-auto flex max-w-[1440px]">
-        <aside class="fixed inset-y-16 left-0 z-20 hidden w-60 border-r border-gray-100 bg-white lg:block"><nav class="space-y-1.5 p-4" aria-label="Navigasi utama">@foreach ($navigation as $item)<button type="button" data-nav-item="{{ $item['label'] }}" class="flex w-full items-center gap-3 rounded-xl px-3 py-2.5 text-left text-sm font-medium transition {{ $loop->first ? 'bg-[#F96332] text-white shadow-sm' : 'text-gray-600 hover:bg-gray-50' }}"><x-icon name="{{ $item['icon'] }}" size="18" />{{ $item['label'] }}</button>@endforeach</nav></aside>
+        <aside class="fixed inset-y-16 left-0 z-20 hidden w-60 border-r border-gray-100 bg-white lg:block"><x-umkm-navigation /></aside>
         <div class="fixed inset-0 z-10 hidden bg-gray-900/20 lg:hidden" data-sidebar-backdrop></div>
-        <aside class="fixed inset-y-16 left-0 z-20 hidden w-60 border-r border-gray-100 bg-white lg:hidden" data-mobile-sidebar><nav class="space-y-1.5 p-4" aria-label="Navigasi mobile">@foreach ($navigation as $item)<button type="button" data-nav-item="{{ $item['label'] }}" class="flex w-full items-center gap-3 rounded-xl px-3 py-2.5 text-left text-sm font-medium transition {{ $loop->first ? 'bg-[#F96332] text-white shadow-sm' : 'text-gray-600 hover:bg-gray-50' }}"><x-icon name="{{ $item['icon'] }}" size="18" />{{ $item['label'] }}</button>@endforeach</nav></aside>
+        <aside class="fixed inset-y-16 left-0 z-20 hidden w-60 border-r border-gray-100 bg-white lg:hidden" data-mobile-sidebar><x-umkm-navigation /></aside>
 
         <main class="w-full px-4 py-6 sm:px-6 md:p-8 lg:ml-60"><div class="mx-auto max-w-7xl space-y-7">
             <section class="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between"><div><h1 class="text-2xl font-bold tracking-tight text-gray-900">Dashboard UMKM</h1><p class="mt-0.5 text-sm text-gray-400">Dapur Batak <span aria-hidden="true">•</span> Senin, 26 Sep 2026</p></div><button type="button" data-product-modal-open class="inline-flex w-fit items-center gap-2 rounded-xl bg-[#F96332] px-5 py-2.5 text-sm font-medium text-white shadow-sm transition hover:-translate-y-0.5 hover:bg-[#EA580C]"><x-icon name="plus" size="17" />Tambah Produk</button></section>

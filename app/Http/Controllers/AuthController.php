@@ -291,10 +291,14 @@ class AuthController extends Controller
 
     public function logout(Request $request): RedirectResponse
     {
+        $selectedRole = $request->session()->get('selected_role');
+
         Auth::logout();
         $request->session()->invalidate();
         $request->session()->regenerateToken();
 
-        return redirect()->route('login');
+        return $selectedRole
+            ? redirect()->route('login', ['role' => $selectedRole])
+            : redirect()->route('roles.choose');
     }
 }

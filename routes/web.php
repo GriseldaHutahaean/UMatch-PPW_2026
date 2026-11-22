@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\SocialAuthController;
+use App\Http\Controllers\UmkmDashboardController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
@@ -37,4 +38,14 @@ Route::middleware('auth')->group(function (): void {
             ->middleware("role:{$role}")
             ->name("{$role}.dashboard");
     }
+
+    Route::middleware('role:umkm')->prefix('umkm')->name('umkm.')->group(function (): void {
+        Route::get('/products', [UmkmDashboardController::class, 'products'])->name('products');
+        Route::get('/orders', [UmkmDashboardController::class, 'orders'])->name('orders');
+        Route::get('/stock', [UmkmDashboardController::class, 'stock'])->name('stock');
+        Route::get('/finance', [UmkmDashboardController::class, 'finance'])->name('finance');
+        Route::get('/investors', [UmkmDashboardController::class, 'investors'])->name('investors');
+        Route::get('/reports', [UmkmDashboardController::class, 'reports'])->name('reports');
+        Route::get('/store', [UmkmDashboardController::class, 'store'])->name('store');
+    });
 });

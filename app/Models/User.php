@@ -50,7 +50,7 @@ class User extends Authenticatable
 
     public function getPrimaryRole(): ?string
     {
-        return $this->roles()->orderBy('role_id')->value('nama_role');
+        return $this->roles()->orderBy('roles.role_id')->value('nama_role');
     }
 
     protected function casts(): array

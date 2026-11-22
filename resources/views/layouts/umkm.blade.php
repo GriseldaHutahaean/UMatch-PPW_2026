@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@yield('title', 'UMKM — UMatch')</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    @vite(['resources/css/app.css', 'resources/js/app.js'])
+</head>
+<body class="bg-[#FAFAFB] font-[Plus_Jakarta_Sans,ui-sans-serif,sans-serif] text-slate-900">
+    <header class="sticky top-0 z-30 h-16 border-b border-slate-100 bg-white"><div class="flex h-full items-center gap-4 px-4 sm:px-6 lg:px-8">
+        <button type="button" class="rounded-lg p-2 text-slate-500 hover:bg-slate-50 lg:hidden" data-sidebar-toggle aria-label="Buka navigasi"><x-icon name="menu" size="20" /></button>
+        <a href="{{ route('umkm.dashboard') }}" class="flex shrink-0 items-center gap-2"><x-logo size="28" /><span class="text-base font-extrabold tracking-tight">UMatch</span><span class="rounded-full bg-[#FF7043] px-2.5 py-0.5 text-[10px] font-bold uppercase tracking-wider text-white">UMKM</span></a>
+        <div class="relative ml-2 hidden max-w-[460px] flex-1 md:block"><x-icon name="search" size="17" class="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400" /><input type="search" placeholder="Cari produk, UMKM, atau investasi..." class="w-full rounded-full border border-slate-200 bg-slate-50 py-2.5 pl-11 pr-4 text-xs outline-none focus:border-orange-300 focus:ring-2 focus:ring-orange-100"></div>
+        <div class="ml-auto flex items-center gap-2"><button type="button" data-toast="Tidak ada notifikasi baru" class="relative flex h-10 w-10 items-center justify-center rounded-full border border-slate-200 text-slate-500 hover:bg-slate-50" aria-label="Notifikasi"><x-icon name="bell" size="18" /><span class="absolute right-2 top-2 h-1.5 w-1.5 rounded-full bg-[#FF7043]"></span></button><span class="hidden rounded-full border border-orange-200 bg-orange-50 px-3 py-2 text-xs font-bold text-[#FF7043] sm:inline-flex">UMKM⌄</span><span class="flex h-9 w-9 items-center justify-center rounded-full bg-[#FF7043] text-sm font-bold text-white">B</span></div>
+    </div></header>
+    <div class="flex"><aside class="fixed inset-y-16 left-0 z-20 hidden w-60 border-r border-slate-100 bg-white lg:block"><x-umkm-navigation /></aside><div class="fixed inset-0 z-10 hidden bg-slate-900/20 lg:hidden" data-sidebar-backdrop></div><aside class="fixed inset-y-16 left-0 z-20 hidden w-60 border-r border-slate-100 bg-white lg:hidden" data-mobile-sidebar><x-umkm-navigation /></aside><main class="w-full px-4 py-6 sm:px-6 md:p-8 lg:ml-60">@yield('content')</main></div>
+    <div class="fixed bottom-5 right-5 z-50 hidden max-w-xs rounded-xl bg-slate-900 px-4 py-3 text-sm font-medium text-white shadow-xl" data-toast-message></div>
+    <script>const toast=document.querySelector('[data-toast-message]');let toastTimer;function showToast(message){toast.textContent=message;toast.classList.remove('hidden');clearTimeout(toastTimer);toastTimer=setTimeout(()=>toast.classList.add('hidden'),2600)}document.querySelectorAll('[data-toast]').forEach((el)=>el.addEventListener('click',()=>showToast(el.dataset.toast)));const mobileSidebar=document.querySelector('[data-mobile-sidebar]');const backdrop=document.querySelector('[data-sidebar-backdrop]');document.querySelector('[data-sidebar-toggle]')?.addEventListener('click',()=>{mobileSidebar.classList.remove('hidden');backdrop.classList.remove('hidden')});backdrop?.addEventListener('click',()=>{mobileSidebar.classList.add('hidden');backdrop.classList.add('hidden')});</script>
+</body></html>

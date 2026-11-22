@@ -5,12 +5,22 @@ namespace App\Http\Controllers;
 use App\Models\User;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Str;
 use Laravel\Socialite\Facades\Socialite;
 
 class SocialAuthController extends Controller
 {
     public function redirectToGoogle(): RedirectResponse
     {
+        abort_unless(
+            filled(config('services.google.client_id'))
+            && filled(config('services.google.client_secret'))
+            && filled(config('services.google.redirect')),
+            503,
+            'Login Google belum dikonfigurasi. Isi GOOGLE_CLIENT_ID, GOOGLE_CLIENT_SECRET, dan GOOGLE_REDIRECT_URI di file .env.'
+        );
+
         return Socialite::driver('google')->redirect();
     }
 
@@ -28,6 +38,7 @@ class SocialAuthController extends Controller
             $user = User::query()->create([
                 'nama' => $googleUser->getName() ?: 'Pengguna Google',
                 'email' => $googleUser->getEmail(),
+                'password' => Hash::make(Str::random(64)),
                 'google_id' => $googleUser->getId(),
                 'foto_profil' => $googleUser->getAvatar(),
                 'status_akun' => 'aktif',

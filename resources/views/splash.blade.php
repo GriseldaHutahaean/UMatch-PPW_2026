@@ -30,7 +30,7 @@
             <span class="h-2.5 w-2.5 animate-pulse rounded-full bg-[#66d5ca] [animation-delay:300ms]"></span>
         </div>
 
-        <a href="{{ auth()->check() ? route('dashboard') : route('onboarding') }}" class="mt-10 inline-flex items-center gap-2 rounded-full border border-white/25 bg-white/10 px-6 py-3 text-sm font-bold text-white backdrop-blur-sm transition hover:bg-white/20">
+        <a href="{{ route('onboarding') }}" class="mt-10 inline-flex items-center gap-2 rounded-full border border-white/25 bg-white/10 px-6 py-3 text-sm font-bold text-white backdrop-blur-sm transition hover:bg-white/20">
             Lewati <span aria-hidden="true">→</span>
         </a>
     </section>
@@ -45,15 +45,7 @@ setTimeout(() => {
     const splash = document.getElementById('splash');
     splash.classList.add('opacity-0');
     setTimeout(() => {
-        let destination = @json(auth()->check() ? route('dashboard') : route('onboarding'));
-        try {
-            if (!@json(auth()->check()) && window.localStorage.getItem('umatch_onboarding_complete') === '1') {
-                destination = @json(route('roles.choose'));
-            }
-        } catch (error) {
-            // Keep the onboarding flow available when browser storage is unavailable.
-        }
-        window.location.href = destination;
+        window.location.href = @json(route('onboarding'));
     }, 500);
 }, 1800);
 </script>
