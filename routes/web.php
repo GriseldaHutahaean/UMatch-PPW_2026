@@ -3,6 +3,7 @@
 use App\Http\Controllers\Admin\AdminAuthController;
 use App\Http\Controllers\Admin\AdminDashboardController;
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\InvestorDashboardController;
 use App\Http\Controllers\SocialAuthController;
 use App\Http\Controllers\UmkmDashboardController;
 use Illuminate\Support\Facades\Route;
@@ -68,8 +69,14 @@ Route::middleware('auth')->group(function (): void {
             ->name("{$role}.dashboard");
     }
 
+    Route::get('/investor/dashboard', [InvestorDashboardController::class, 'index'])
+        ->middleware('role:investor')
+        ->name('investor.dashboard');
+
     Route::middleware('role:umkm')->prefix('umkm')->name('umkm.')->group(function (): void {
         Route::get('/products', [UmkmDashboardController::class, 'products'])->name('products');
+        Route::get('/products/create', [UmkmDashboardController::class, 'createProduct'])->name('products.create');
+        Route::post('/products', [UmkmDashboardController::class, 'storeProduct'])->name('products.store');
         Route::get('/orders', [UmkmDashboardController::class, 'orders'])->name('orders');
         Route::get('/stock', [UmkmDashboardController::class, 'stock'])->name('stock');
         Route::get('/finance', [UmkmDashboardController::class, 'finance'])->name('finance');
