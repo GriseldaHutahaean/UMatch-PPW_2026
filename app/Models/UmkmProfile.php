@@ -37,4 +37,14 @@ class UmkmProfile extends Model
     {
         return $this->hasMany(UmkmDocument::class, 'umkm_profile_id', 'umkm_profile_id');
     }
+
+    public function products(): HasMany
+    {
+        return $this->hasMany(Product::class, 'umkm_profile_id', 'umkm_profile_id');
+    }
+
+    public function financialTransactions(): HasMany
+    {
+        return $this->hasMany(FinancialTransaction::class, 'umkm_profile_id', 'umkm_profile_id');
+    }
 }
