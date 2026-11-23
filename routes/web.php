@@ -1,10 +1,38 @@
 <?php
 
+use App\Http\Controllers\Admin\AdminAuthController;
+use App\Http\Controllers\Admin\AdminDashboardController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\InvestorDashboardController;
 use App\Http\Controllers\SocialAuthController;
 use App\Http\Controllers\UmkmDashboardController;
 use Illuminate\Support\Facades\Route;
+
+// ─────────────────────────────────────────────────────────────────────────────
+// Admin-only routes — completely separate from public authentication
+// ─────────────────────────────────────────────────────────────────────────────
+
+// Admin guest routes (redirect to dashboard if already authenticated as admin)
+Route::prefix('admin')->name('admin.')->middleware('admin.guest')->group(function (): void {
+    Route::get('/login', [AdminAuthController::class, 'showLogin'])->name('login');
+    Route::post('/login', [AdminAuthController::class, 'login'])->name('login.store');
+});
+
+// Admin protected routes
+Route::prefix('admin')->name('admin.')->middleware('admin.auth')->group(function (): void {
+    Route::post('/logout', [AdminAuthController::class, 'logout'])->name('logout');
+    Route::get('/dashboard', [AdminDashboardController::class, 'index'])->name('dashboard');
+
+    // Reserved admin sub-sections (protected, placeholder for future implementation)
+    Route::get('/users', fn () => view('admin.dashboard', ['admin' => auth()->user()]))->name('users');
+    Route::get('/umkm-verification', fn () => view('admin.dashboard', ['admin' => auth()->user()]))->name('umkm-verification');
+    Route::get('/investor-kyc', fn () => view('admin.dashboard', ['admin' => auth()->user()]))->name('investor-kyc');
+    Route::get('/content-moderation', fn () => view('admin.dashboard', ['admin' => auth()->user()]))->name('content-moderation');
+});
+
+// ─────────────────────────────────────────────────────────────────────────────
+// Public routes — Customer, UMKM, and Investor (unchanged)
+// ─────────────────────────────────────────────────────────────────────────────
 
 Route::get('/', function () {
     return view('splash');
@@ -34,7 +62,8 @@ Route::middleware('auth')->group(function (): void {
         return $role ? redirect()->route($role.'.dashboard') : redirect()->route('roles.choose');
     })->name('dashboard');
 
-    foreach (['admin', 'customer', 'umkm'] as $role) {
+    // Public role dashboards (admin excluded — admin uses its own /admin/dashboard)
+    foreach (['customer', 'umkm', 'investor'] as $role) {
         Route::view("/{$role}/dashboard", 'dashboard', ['role' => $role])
             ->middleware("role:{$role}")
             ->name("{$role}.dashboard");
