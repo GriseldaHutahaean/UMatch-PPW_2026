@@ -17,7 +17,7 @@ class User extends Authenticatable
     protected $primaryKey = 'user_id';
 
     protected $fillable = [
-        'nama', 'email', 'password', 'google_id', 'foto_profil', 'no_hp', 'status_akun',
+        'nama', 'email', 'password', 'google_id', 'foto_profil', 'no_hp', 'status_akun', 'username_admin',
     ];
 
     protected $hidden = ['password', 'remember_token'];
@@ -51,6 +51,19 @@ class User extends Authenticatable
     public function getPrimaryRole(): ?string
     {
         return $this->roles()->orderBy('roles.role_id')->value('nama_role');
+    }
+
+    /**
+     * Return the administrator's display name derived from their username_admin.
+     * Falls back to the user's nama field if no username_admin is set.
+     */
+    public function getAdminDisplayName(): string
+    {
+        if ($this->username_admin !== null) {
+            return ucfirst($this->username_admin);
+        }
+
+        return $this->nama;
     }
 
     protected function casts(): array
