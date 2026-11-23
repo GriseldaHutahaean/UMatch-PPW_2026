@@ -1,24 +1,24 @@
 @php
     $presentation = match ($selectedRole) {
         'customer' => [
-            'accent' => 'text-[#00a99d]',
-            'button' => 'bg-[#00a99d] hover:bg-[#008f84]',
+            'accent' => 'text-teal-700',
+            'button' => 'umatch-gradient hover:brightness-105',
             'icon' => 'bag',
-            'panel' => 'bg-gradient-to-br from-[#00a98f] to-[#32b4a9]',
+            'panel' => 'umatch-gradient',
             'roleTitle' => 'Daftar sebagai Customer',
         ],
         'umkm' => [
-            'accent' => 'text-[#ff6946]',
-            'button' => 'bg-[#ff6946] hover:bg-[#f45731]',
+            'accent' => 'text-blue-700',
+            'button' => 'umatch-gradient hover:brightness-105',
             'icon' => 'store',
-            'panel' => 'bg-gradient-to-br from-[#ff6b3d] to-[#ff936f]',
+            'panel' => 'umatch-gradient',
             'roleTitle' => 'Daftar sebagai UMKM',
         ],
         default => [
-            'accent' => 'text-[#205a98]',
-            'button' => 'bg-[#205a98] hover:bg-[#174779]',
+            'accent' => 'text-emerald-700',
+            'button' => 'umatch-gradient hover:brightness-105',
             'icon' => 'trend',
-            'panel' => 'bg-gradient-to-br from-[#1d4e88] to-[#4d7fb1]',
+            'panel' => 'umatch-gradient',
             'roleTitle' => 'Daftar sebagai Investor',
         ],
     };

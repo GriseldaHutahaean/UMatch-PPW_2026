@@ -5,9 +5,9 @@
 @section('content')
 @php
     $roleStyles = [
-        'customer' => ['iconBackground' => 'bg-emerald-50', 'accent' => 'text-emerald-700', 'roleBorder' => 'border-emerald-300', 'selectedBorder' => 'border-emerald-500', 'selectedBackground' => 'bg-emerald-50/80', 'selectedRing' => 'ring-emerald-100'],
-        'umkm' => ['iconBackground' => 'bg-orange-50', 'accent' => 'text-orange-700', 'roleBorder' => 'border-orange-300', 'selectedBorder' => 'border-orange-500', 'selectedBackground' => 'bg-orange-50/80', 'selectedRing' => 'ring-orange-100'],
-        'investor' => ['iconBackground' => 'bg-blue-50', 'accent' => 'text-blue-700', 'roleBorder' => 'border-blue-300', 'selectedBorder' => 'border-blue-500', 'selectedBackground' => 'bg-blue-50/80', 'selectedRing' => 'ring-blue-100'],
+        'customer' => ['iconBackground' => 'umatch-gradient-soft', 'accent' => 'text-teal-700', 'roleBorder' => 'border-slate-200', 'selectedBorder' => 'border-teal-500', 'selectedBackground' => 'bg-teal-50/70', 'selectedRing' => 'ring-teal-100'],
+        'umkm' => ['iconBackground' => 'umatch-gradient-soft', 'accent' => 'text-blue-700', 'roleBorder' => 'border-slate-200', 'selectedBorder' => 'border-blue-500', 'selectedBackground' => 'bg-blue-50/70', 'selectedRing' => 'ring-blue-100'],
+        'investor' => ['iconBackground' => 'umatch-gradient-soft', 'accent' => 'text-emerald-700', 'roleBorder' => 'border-slate-200', 'selectedBorder' => 'border-emerald-500', 'selectedBackground' => 'bg-emerald-50/70', 'selectedRing' => 'ring-emerald-100'],
     ];
     $roleDetails = [
         'customer' => 'Jelajahi produk lokal, simpan favorit, dan pantau pesanan dari satu akun.',
@@ -16,14 +16,14 @@
     ];
 @endphp
 
-<main class="min-h-screen w-full bg-slate-50 px-4 py-8 text-slate-800 sm:px-8 lg:px-12">
+<main class="min-h-screen w-full bg-white px-4 py-8 text-slate-800 sm:px-8 lg:px-12">
     <header class="mx-auto flex w-full max-w-6xl items-center justify-between">
         <a href="{{ route('landing') }}" class="flex items-center gap-2 text-xl font-extrabold"><x-logo size="34" /> UMatch</a>
         <span class="text-xs font-semibold text-slate-400">Langkah 1 dari 2</span>
     </header>
 
     <section class="mx-auto w-full max-w-6xl py-12 text-center sm:py-16">
-        <p class="text-xs font-extrabold uppercase tracking-[0.25em] text-[#0d4d96]">UMATCH</p>
+        <p class="umatch-gradient-text text-xs font-extrabold uppercase tracking-[0.25em]">UMATCH</p>
         <h1 class="mt-3 text-3xl font-extrabold tracking-tight sm:text-4xl">Kamu menggunakan UMatch sebagai apa?</h1>
         <p class="mx-auto mt-3 max-w-xl text-sm leading-6 text-slate-500 sm:text-base">Pilih role yang paling sesuai untuk menyesuaikan pengalamanmu. Satu akun tetap bisa digunakan untuk tiga peran.</p>
 
@@ -50,7 +50,7 @@
 
             @error('role')<p class="mt-4 text-sm font-medium text-red-600">{{ $message }}</p>@enderror
             <p data-role-summary aria-live="polite" class="mx-auto mt-6 min-h-5 text-sm font-semibold text-slate-500">Pilih salah satu role untuk melanjutkan.</p>
-            <button type="submit" class="mt-5 h-14 w-full max-w-md rounded-2xl bg-[#0d4d96] px-8 font-bold text-white shadow-lg shadow-blue-900/20 transition hover:bg-blue-900 disabled:cursor-not-allowed disabled:opacity-50" disabled data-role-submit>{{ auth()->check() ? 'Lanjutkan untuk Menambahkan Role' : 'Lanjut ke Login' }}</button>
+            <button type="submit" class="umatch-gradient mt-5 h-14 w-full max-w-md rounded-2xl px-8 font-bold text-white shadow-lg shadow-blue-900/20 transition hover:brightness-105 disabled:cursor-not-allowed disabled:opacity-50" disabled data-role-submit>{{ auth()->check() ? 'Lanjutkan untuk Menambahkan Role' : 'Lanjut ke Login' }}</button>
         </form>
     </section>
 </main>
@@ -64,9 +64,9 @@ const roleSummary = document.querySelector('[data-role-summary]');
 const roleCards = [...roleForm.querySelectorAll('[data-role-card]')];
 const roleLabels = { customer: 'Customer', umkm: 'UMKM', investor: 'Investor' };
 const selectedCardClasses = {
-    customer: ['border-emerald-500', 'bg-emerald-50/80', 'ring-emerald-100'],
-    umkm: ['border-orange-400', 'bg-orange-50/80', 'ring-orange-100'],
-    investor: ['border-blue-400', 'bg-blue-50/80', 'ring-blue-100'],
+    customer: ['border-teal-500', 'bg-teal-50/70', 'ring-teal-100'],
+    umkm: ['border-blue-500', 'bg-blue-50/70', 'ring-blue-100'],
+    investor: ['border-emerald-500', 'bg-emerald-50/70', 'ring-emerald-100'],
 };
 const isAddingRole = @json(auth()->check());
 

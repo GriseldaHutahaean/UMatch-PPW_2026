@@ -3,9 +3,9 @@
 @php
     $role = config("umatch.roles.{$selectedRole}");
     $roleStyles = [
-        'customer' => ['panel' => 'bg-[#12b5a8]', 'panelSoft' => 'bg-[#66d5ca]/25', 'panelText' => 'text-[#d7fffb]', 'accent' => 'text-[#00a99d]', 'accentBg' => 'bg-[#00a99d]', 'accentSoft' => 'bg-[#e8fbf9]', 'accentHover' => 'hover:bg-[#008f85]', 'focus' => 'focus:border-[#00a99d] focus:ring-[#00a99d]/15', 'icon' => 'bag'],
-        'umkm' => ['panel' => 'bg-[#ff704b]', 'panelSoft' => 'bg-[#ffb29c]/25', 'panelText' => 'text-[#ffe5dd]', 'accent' => 'text-[#ff6946]', 'accentBg' => 'bg-[#ff6946]', 'accentSoft' => 'bg-[#fff1ec]', 'accentHover' => 'hover:bg-[#eb5736]', 'focus' => 'focus:border-[#ff6946] focus:ring-[#ff6946]/15', 'icon' => 'store'],
-        'investor' => ['panel' => 'bg-[#2e649c]', 'panelSoft' => 'bg-[#86b8e5]/25', 'panelText' => 'text-[#e0efff]', 'accent' => 'text-[#205a98]', 'accentBg' => 'bg-[#205a98]', 'accentSoft' => 'bg-[#edf5ff]', 'accentHover' => 'hover:bg-[#174777]', 'focus' => 'focus:border-[#205a98] focus:ring-[#205a98]/15', 'icon' => 'trend'],
+        'customer' => ['panel' => 'umatch-gradient', 'panelSoft' => 'bg-white/15', 'panelText' => 'text-white/80', 'accent' => 'text-teal-700', 'accentBg' => 'umatch-gradient', 'accentSoft' => 'umatch-gradient-soft', 'accentHover' => 'hover:brightness-105', 'focus' => 'focus:border-blue-500 focus:ring-blue-500/15', 'icon' => 'bag'],
+        'umkm' => ['panel' => 'umatch-gradient', 'panelSoft' => 'bg-white/15', 'panelText' => 'text-white/80', 'accent' => 'text-blue-700', 'accentBg' => 'umatch-gradient', 'accentSoft' => 'umatch-gradient-soft', 'accentHover' => 'hover:brightness-105', 'focus' => 'focus:border-blue-500 focus:ring-blue-500/15', 'icon' => 'store'],
+        'investor' => ['panel' => 'umatch-gradient', 'panelSoft' => 'bg-white/15', 'panelText' => 'text-white/80', 'accent' => 'text-emerald-700', 'accentBg' => 'umatch-gradient', 'accentSoft' => 'umatch-gradient-soft', 'accentHover' => 'hover:brightness-105', 'focus' => 'focus:border-blue-500 focus:ring-blue-500/15', 'icon' => 'trend'],
     ][$selectedRole];
 @endphp
 
