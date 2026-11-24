@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\UmkmProfile;
 use Illuminate\Contracts\View\View;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Http\Request;
 
 class InvestorDashboardController extends Controller
@@ -47,11 +49,45 @@ class InvestorDashboardController extends Controller
                 ['name' => 'Tenun Ulos Sibolga', 'detail' => 'Kerajinan • Sibolga', 'funding' => 'Pendanaan terbuka', 'thumbnail' => 'from-yellow-200 via-orange-300 to-red-500', 'emoji' => '🧵'],
             ],
             'quickActions' => [
-                ['label' => 'Jelajah UMKM', 'icon' => 'search', 'iconClass' => 'bg-[#EFF6FF] text-[#2563EB]'],
+                ['label' => 'Jelajah UMKM', 'icon' => 'search', 'iconClass' => 'bg-[#EFF6FF] text-[#2563EB]', 'route' => 'investor.explore'],
                 ['label' => 'Tawaran Saya', 'icon' => 'file-text', 'iconClass' => 'bg-[#FFFBEB] text-[#F59E0B]'],
                 ['label' => 'Portofolio', 'icon' => 'bar-chart', 'iconClass' => 'bg-[#E6F7F4] text-[#00A88F]'],
                 ['label' => 'Return Investasi', 'icon' => 'trending-up', 'iconClass' => 'bg-[#EEF2FF] text-[#4F46E5]'],
             ],
+        ]);
+    }
+
+    /**
+     * Penelusuran UMKM yang sudah terverifikasi, dengan pencarian nama/lokasi
+     * dan filter kategori usaha.
+     */
+    public function explore(Request $request): View
+    {
+        $validated = $request->validate([
+            'q' => ['nullable', 'string', 'max:100'],
+            'kategori' => ['nullable', 'string', 'max:255'],
+        ]);
+
+        $search = $validated['q'] ?? null;
+        $category = $validated['kategori'] ?? null;
+
+        $verifiedUmkms = UmkmProfile::query()->where('status_verifikasi', 'verified');
+
+        $umkms = (clone $verifiedUmkms)
+            ->when($search, fn (Builder $query, string $search) => $query->where(function (Builder $query) use ($search): void {
+                $query->where('nama_usaha', 'like', "%{$search}%")
+                    ->orWhere('alamat_usaha', 'like', "%{$search}%");
+            }))
+            ->when($category, fn (Builder $query, string $category) => $query->where('kategori_usaha', $category))
+            ->orderByDesc('terima_investasi')
+            ->orderBy('nama_usaha')
+            ->get();
+
+        return view('investor.explore', [
+            'umkms' => $umkms,
+            'categories' => $verifiedUmkms->distinct()->orderBy('kategori_usaha')->pluck('kategori_usaha'),
+            'search' => $search,
+            'category' => $category,
         ]);
     }
 }

@@ -2,8 +2,10 @@
 
 use App\Models\InvestorProfile;
 use App\Models\Role;
+use App\Models\UmkmProfile;
 use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use Illuminate\Support\Str;
 use Tests\TestCase;
 
 uses(TestCase::class, RefreshDatabase::class);
@@ -88,4 +90,86 @@ it('sends an investor to the investor dashboard after login', function (): void 
     $this->actingAs($user)
         ->get(route('dashboard'))
         ->assertRedirect(route('investor.dashboard'));
+});
+
+function createUmkmProfile(string $businessName, string $category, string $status, bool $acceptsInvestment = true, string $address = 'Balige'): UmkmProfile
+{
+    $owner = createUserWithRole('umkm', Str::slug($businessName).'@example.test');
+
+    return UmkmProfile::query()->create([
+        'user_id' => $owner->getKey(),
+        'nama_usaha' => $businessName,
+        'kategori_usaha' => $category,
+        'alamat_usaha' => $address,
+        'status_verifikasi' => $status,
+        'terima_investasi' => $acceptsInvestment,
+    ]);
+}
+
+it('links the Jelajah UMKM quick action on the dashboard to the explore page', function (): void {
+    $user = createUserWithRole('investor', 'quick-action@example.test');
+
+    $this->actingAs($user)
+        ->get(route('investor.dashboard'))
+        ->assertOk()
+        ->assertSee('href="'.route('investor.explore').'"', false);
+});
+
+it('lists only verified UMKM on the explore page', function (): void {
+    $user = createUserWithRole('investor', 'explorer@example.test');
+    createUmkmProfile('Dapur Batak', 'Makanan', 'verified');
+    createUmkmProfile('Toko Pending', 'Makanan', 'pending');
+    createUmkmProfile('Toko Ditolak', 'Makanan', 'rejected');
+
+    $this->actingAs($user)
+        ->get(route('investor.explore'))
+        ->assertOk()
+        ->assertSee('Dapur Batak')
+        ->assertDontSee('Toko Pending')
+        ->assertDontSee('Toko Ditolak')
+        ->assertSee('1 UMKM terverifikasi ditemukan');
+});
+
+it('shows whether a verified UMKM is open for funding', function (): void {
+    $user = createUserWithRole('investor', 'funding@example.test');
+    createUmkmProfile('Kopi Terbuka', 'Minuman', 'verified', true);
+    createUmkmProfile('Kopi Tertutup', 'Minuman', 'verified', false);
+
+    $this->actingAs($user)
+        ->get(route('investor.explore'))
+        ->assertSee('Pendanaan terbuka')
+        ->assertSee('Pendanaan tertutup');
+});
+
+it('filters the explore page by search keyword and category', function (): void {
+    $user = createUserWithRole('investor', 'filter@example.test');
+    createUmkmProfile('Dapur Batak', 'Makanan', 'verified', true, 'Balige');
+    createUmkmProfile('Tenun Ulos', 'Kerajinan', 'verified', true, 'Sibolga');
+
+    $this->actingAs($user)
+        ->get(route('investor.explore', ['q' => 'Sibolga']))
+        ->assertSee('Tenun Ulos')
+        ->assertDontSee('Dapur Batak');
+
+    $this->actingAs($user)
+        ->get(route('investor.explore', ['kategori' => 'Makanan']))
+        ->assertSee('Dapur Batak')
+        ->assertDontSee('Tenun Ulos');
+});
+
+it('shows an empty state when no verified UMKM matches', function (): void {
+    $user = createUserWithRole('investor', 'empty@example.test');
+
+    $this->actingAs($user)
+        ->get(route('investor.explore', ['q' => 'tidak-ada']))
+        ->assertOk()
+        ->assertSee('Belum ada UMKM yang cocok');
+});
+
+it('forbids users without the investor role from the explore page', function (): void {
+    $customer = createUserWithRole('customer', 'customer-explore@example.test');
+
+    $this->actingAs($customer)
+        ->get(route('investor.explore'))
+        ->assertForbidden();
 });
