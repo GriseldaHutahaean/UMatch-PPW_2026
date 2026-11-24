@@ -5,9 +5,9 @@
 @section('content')
 @php
     $roleStyles = [
-        'customer' => ['iconBackground' => 'umatch-gradient-soft', 'accent' => 'text-teal-700', 'roleBorder' => 'border-slate-200', 'selectedBorder' => 'border-teal-500', 'selectedBackground' => 'bg-teal-50/70', 'selectedRing' => 'ring-teal-100'],
-        'umkm' => ['iconBackground' => 'umatch-gradient-soft', 'accent' => 'text-blue-700', 'roleBorder' => 'border-slate-200', 'selectedBorder' => 'border-blue-500', 'selectedBackground' => 'bg-blue-50/70', 'selectedRing' => 'ring-blue-100'],
-        'investor' => ['iconBackground' => 'umatch-gradient-soft', 'accent' => 'text-emerald-700', 'roleBorder' => 'border-slate-200', 'selectedBorder' => 'border-emerald-500', 'selectedBackground' => 'bg-emerald-50/70', 'selectedRing' => 'ring-emerald-100'],
+        'customer' => ['iconBackground' => 'umatch-gradient-soft', 'accent' => 'text-teal-700', 'button' => 'bg-teal-600 hover:bg-teal-700', 'roleBorder' => 'border-slate-200', 'selectedBorder' => 'border-teal-500', 'selectedBackground' => 'bg-teal-50/70', 'selectedRing' => 'ring-teal-100'],
+        'umkm' => ['iconBackground' => 'umatch-gradient-soft', 'accent' => 'text-blue-700', 'button' => 'bg-blue-600 hover:bg-blue-700', 'roleBorder' => 'border-slate-200', 'selectedBorder' => 'border-blue-500', 'selectedBackground' => 'bg-blue-50/70', 'selectedRing' => 'ring-blue-100'],
+        'investor' => ['iconBackground' => 'umatch-gradient-soft', 'accent' => 'text-emerald-700', 'button' => 'bg-emerald-600 hover:bg-emerald-700', 'roleBorder' => 'border-slate-200', 'selectedBorder' => 'border-emerald-500', 'selectedBackground' => 'bg-emerald-50/70', 'selectedRing' => 'ring-emerald-100'],
     ];
     $roleDetails = [
         'customer' => 'Jelajahi produk lokal, simpan favorit, dan pantau pesanan dari satu akun.',
@@ -50,7 +50,7 @@
 
             @error('role')<p class="mt-4 text-sm font-medium text-red-600">{{ $message }}</p>@enderror
             <p data-role-summary aria-live="polite" class="mx-auto mt-6 min-h-5 text-sm font-semibold text-slate-500">Pilih salah satu role untuk melanjutkan.</p>
-            <button type="submit" class="umatch-gradient mt-5 h-14 w-full max-w-md rounded-2xl px-8 font-bold text-white shadow-lg shadow-blue-900/20 transition hover:brightness-105 disabled:cursor-not-allowed disabled:opacity-50" disabled data-role-submit>{{ auth()->check() ? 'Lanjutkan untuk Menambahkan Role' : 'Lanjut ke Login' }}</button>
+            <button type="submit" class="{{ $roleStyles[$selectedRole]['button'] ?? 'bg-slate-400' }} mt-5 h-14 w-full max-w-md rounded-2xl px-8 font-bold text-white shadow-lg shadow-slate-900/10 transition disabled:cursor-not-allowed disabled:opacity-50" disabled data-role-submit>{{ auth()->check() ? 'Lanjutkan untuk Menambahkan Role' : 'Lanjut ke Login' }}</button>
         </form>
     </section>
 </main>
@@ -67,6 +67,11 @@ const selectedCardClasses = {
     customer: ['border-teal-500', 'bg-teal-50/70', 'ring-teal-100'],
     umkm: ['border-blue-500', 'bg-blue-50/70', 'ring-blue-100'],
     investor: ['border-emerald-500', 'bg-emerald-50/70', 'ring-emerald-100'],
+};
+const submitButtonClasses = {
+    customer: ['bg-teal-600', 'hover:bg-teal-700'],
+    umkm: ['bg-blue-600', 'hover:bg-blue-700'],
+    investor: ['bg-emerald-600', 'hover:bg-emerald-700'],
 };
 const isAddingRole = @json(auth()->check());
 
@@ -88,6 +93,8 @@ function updateSelectedRole() {
     });
 
     if (selected) {
+        Object.values(submitButtonClasses).flat().forEach((className) => roleSubmit.classList.remove(className));
+        submitButtonClasses[selected.value].forEach((className) => roleSubmit.classList.add(className));
         const roleLabel = roleLabels[selected.value];
         roleSummary.textContent = `Role aktif yang dipilih: ${roleLabel}`;
         roleSubmit.textContent = isAddingRole ? `Tambahkan role ${roleLabel}` : `Lanjut sebagai ${roleLabel}`;
