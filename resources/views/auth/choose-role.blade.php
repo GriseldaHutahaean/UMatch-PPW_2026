@@ -5,9 +5,9 @@
 @section('content')
 @php
     $roleStyles = [
-        'customer' => ['iconBackground' => 'umatch-gradient-soft', 'accent' => 'text-teal-700', 'button' => 'bg-teal-600 hover:bg-teal-700', 'roleBorder' => 'border-slate-200', 'selectedBorder' => 'border-teal-500', 'selectedBackground' => 'bg-teal-50/70', 'selectedRing' => 'ring-teal-100'],
-        'umkm' => ['iconBackground' => 'umatch-gradient-soft', 'accent' => 'text-blue-700', 'button' => 'bg-blue-600 hover:bg-blue-700', 'roleBorder' => 'border-slate-200', 'selectedBorder' => 'border-blue-500', 'selectedBackground' => 'bg-blue-50/70', 'selectedRing' => 'ring-blue-100'],
-        'investor' => ['iconBackground' => 'umatch-gradient-soft', 'accent' => 'text-emerald-700', 'button' => 'bg-emerald-600 hover:bg-emerald-700', 'roleBorder' => 'border-slate-200', 'selectedBorder' => 'border-emerald-500', 'selectedBackground' => 'bg-emerald-50/70', 'selectedRing' => 'ring-emerald-100'],
+        'customer' => ['iconBackground' => 'bg-emerald-50', 'accent' => 'text-emerald-700', 'button' => 'bg-emerald-700 hover:bg-emerald-800', 'roleBorder' => 'border-slate-200', 'selectedBorder' => 'border-emerald-700', 'selectedBackground' => 'bg-emerald-50', 'selectedRing' => 'ring-emerald-100'],
+        'umkm' => ['iconBackground' => 'bg-emerald-50', 'accent' => 'text-emerald-700', 'button' => 'bg-emerald-700 hover:bg-emerald-800', 'roleBorder' => 'border-slate-200', 'selectedBorder' => 'border-emerald-700', 'selectedBackground' => 'bg-emerald-50', 'selectedRing' => 'ring-emerald-100'],
+        'investor' => ['iconBackground' => 'bg-emerald-50', 'accent' => 'text-emerald-700', 'button' => 'bg-emerald-700 hover:bg-emerald-800', 'roleBorder' => 'border-slate-200', 'selectedBorder' => 'border-emerald-700', 'selectedBackground' => 'bg-emerald-50', 'selectedRing' => 'ring-emerald-100'],
     ];
     $roleDetails = [
         'customer' => 'Jelajahi produk lokal, simpan favorit, dan pantau pesanan dari satu akun.',
@@ -64,14 +64,14 @@ const roleSummary = document.querySelector('[data-role-summary]');
 const roleCards = [...roleForm.querySelectorAll('[data-role-card]')];
 const roleLabels = { customer: 'Customer', umkm: 'UMKM', investor: 'Investor' };
 const selectedCardClasses = {
-    customer: ['border-teal-500', 'bg-teal-50/70', 'ring-teal-100'],
-    umkm: ['border-blue-500', 'bg-blue-50/70', 'ring-blue-100'],
-    investor: ['border-emerald-500', 'bg-emerald-50/70', 'ring-emerald-100'],
+    customer: ['border-emerald-700', 'bg-emerald-50', 'ring-emerald-100'],
+    umkm: ['border-emerald-700', 'bg-emerald-50', 'ring-emerald-100'],
+    investor: ['border-emerald-700', 'bg-emerald-50', 'ring-emerald-100'],
 };
 const submitButtonClasses = {
-    customer: ['bg-teal-600', 'hover:bg-teal-700'],
-    umkm: ['bg-blue-600', 'hover:bg-blue-700'],
-    investor: ['bg-emerald-600', 'hover:bg-emerald-700'],
+    customer: ['bg-emerald-700', 'hover:bg-emerald-800'],
+    umkm: ['bg-emerald-700', 'hover:bg-emerald-800'],
+    investor: ['bg-emerald-700', 'hover:bg-emerald-800'],
 };
 const isAddingRole = @json(auth()->check());
 

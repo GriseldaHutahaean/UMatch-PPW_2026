@@ -6,18 +6,298 @@
 @theme {
     --font-sans: 'Instrument Sans', ui-sans-serif, system-ui, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji',
         'Segoe UI Symbol', 'Noto Color Emoji';
+
+    --color-primary: #047857;
+    --color-primary-hover: #065F46;
+    --color-primary-dark: #064E3B;
+    --color-primary-accent: #10B981;
+    --color-primary-light: #D1FAE5;
+    --color-primary-soft: #ECFDF5;
+    --color-chart-accent: #34D399;
+    --color-background: #F8FAFC;
+    --color-surface: #FFFFFF;
+    --color-surface-secondary: #F1F5F9;
+    --color-heading: #0F172A;
+    --color-body-text: #334155;
+    --color-text-secondary: #64748B;
+    --color-border: #E2E8F0;
 }
 
 @utility umatch-gradient {
-    background-image: linear-gradient(135deg, #16a34a 0%, #2563eb 52%, #f97316 100%);
+    background-image: linear-gradient(135deg, #047857 0%, #064E3B 100%);
 }
 
 @utility umatch-gradient-soft {
-    background-image: linear-gradient(135deg, #f0fdf4 0%, #eff6ff 52%, #fff7ed 100%);
+    background-image: linear-gradient(135deg, #ECFDF5 0%, #D1FAE5 100%);
 }
 
 @utility umatch-gradient-text {
-    background-image: linear-gradient(135deg, #16a34a 0%, #2563eb 52%, #f97316 100%);
+    background-image: linear-gradient(135deg, #047857 0%, #064E3B 100%);
     background-clip: text;
     color: transparent;
+}
+
+/*
+ * Unified Sophisticated Emerald compatibility palette.
+ * These selectors keep existing Blade structure and utility names intact while
+ * replacing the former role-specific presentation colors only.
+ */
+[class*="bg-[#F96332]"],
+[class*="bg-[#FF7043]"],
+[class*="bg-[#FF750F]"],
+[class*="bg-[#e85b3d]"],
+[class*="bg-[#ff6946]"],
+[class*="bg-[#f53003]"],
+[class*="bg-[#F61500]"] {
+    background-color: #047857 !important;
+}
+
+[class*="bg-[#00A88F]"],
+[class*="bg-[#00a99d]"],
+[class*="bg-[#008F7A]"],
+[class*="bg-[#087d73]"],
+[class*="bg-[#0e9f94]"],
+[class*="bg-[#12b5a8]"],
+[class*="bg-[#10B981]"] {
+    background-color: #047857 !important;
+}
+
+[class*="hover:bg-[#EA580C]"]:hover,
+[class*="hover:bg-orange-600"]:hover,
+[class*="hover:bg-orange-500"]:hover,
+[class*="hover:bg-[#008F7A]"]:hover,
+[class*="group-hover:bg-[#008F7A]"]:hover {
+    background-color: #065F46 !important;
+}
+
+[class*="text-[#F96332]"],
+[class*="text-[#FF7043]"],
+[class*="text-[#FF750F]"],
+[class*="text-[#e85b3d]"],
+[class*="text-[#ff6946]"],
+[class*="text-[#F61500]"],
+[class*="text-[#00A88F]"],
+[class*="text-[#00a99d]"],
+[class*="text-[#008F7A]"],
+[class*="text-[#087d73]"],
+[class*="text-[#0e9f94]"],
+[class*="text-[#12b5a8]"],
+[class*="text-[#10B981]"],
+[class*="text-[#4F46E5]"],
+[class*="text-[#6366F1]"] {
+    color: #047857 !important;
+}
+
+[class*="border-[#F96332]"],
+[class*="border-[#FF7043]"],
+[class*="border-[#FDBA74]"],
+[class*="border-orange-100"],
+[class*="border-orange-200"],
+[class*="border-orange-300"] {
+    border-color: #D1FAE5 !important;
+}
+
+[class*="focus:border-[#F96332]"]:focus,
+[class*="focus:border-[#FF7043]"]:focus,
+[class*="focus:border-orange-300"]:focus,
+[class*="focus:border-[#FDBA74]"]:focus {
+    border-color: #047857 !important;
+}
+
+[class*="bg-[#E6F7F4]"],
+[class*="bg-[#e6faf8]"],
+[class*="bg-[#e9faf7]"],
+[class*="bg-[#f0fdfb]"],
+[class*="bg-teal-50"] {
+    background-color: #ECFDF5 !important;
+}
+
+[class*="bg-[#EEF2FF]"],
+[class*="bg-[#FFF1EB]"],
+[class*="bg-[#FFF7ED]"] {
+    background-color: #ECFDF5 !important;
+}
+
+[class*="bg-orange-50"] {
+    background-color: #FFFBEB !important;
+}
+
+[class*="bg-orange-100"] {
+    background-color: #FEF3C7 !important;
+}
+
+[class*="text-orange-500"],
+[class*="text-orange-600"],
+[class*="text-orange-700"] {
+    color: #92400E !important;
+}
+
+[class*="from-[#FF7043]"],
+[class*="from-[#F96332]"] {
+    --tw-gradient-from: #047857 !important;
+    --tw-gradient-to: #064E3B !important;
+    --tw-gradient-stops: #047857, #064E3B !important;
+}
+
+[class*="to-orange-500"] {
+    --tw-gradient-to: #065F46 !important;
+}
+
+[class*="bg-[#F1F5F9]"],
+[class*="bg-slate-100"],
+[class*="bg-gray-100"] {
+    background-color: #F1F5F9 !important;
+}
+
+[class*="border-[#F1F5F9]"],
+[class*="border-gray-100"],
+[class*="border-slate-100"],
+[class*="border-slate-200"] {
+    border-color: #E2E8F0 !important;
+}
+
+[class*="text-gray-900"],
+[class*="text-slate-900"],
+[class*="text-slate-800"] {
+    color: #0F172A !important;
+}
+
+[class*="text-gray-700"],
+[class*="text-slate-700"] {
+    color: #334155 !important;
+}
+
+[class*="text-gray-400"],
+[class*="text-gray-500"],
+[class*="text-gray-600"],
+[class*="text-slate-400"],
+[class*="text-slate-500"],
+[class*="text-slate-600"] {
+    color: #64748B !important;
+}
+
+[class*="bg-gray-50"],
+[class*="bg-slate-50"],
+[class*="bg-[#F8FAFC]"] {
+    background-color: #F8FAFC !important;
+}
+
+[class*="border-gray-200"],
+[class*="border-slate-200"] {
+    border-color: #E2E8F0 !important;
+}
+
+[class*="ring-orange-100"]:focus,
+[class*="ring-orange-100"].focus {
+    --tw-ring-color: #D1FAE5 !important;
+}
+
+/* Semantic status colors remain distinct from the emerald brand system. */
+[class*="bg-emerald-50"],
+[class*="bg-[#ECFDF5]"] {
+    background-color: #ECFDF5 !important;
+}
+
+[class*="bg-emerald-700"] {
+    background-color: #047857 !important;
+}
+
+[class*="bg-emerald-800"] {
+    background-color: #064E3B !important;
+}
+
+[class*="hover:bg-emerald-800"]:hover {
+    background-color: #065F46 !important;
+}
+
+[class*="border-emerald-700"] {
+    border-color: #047857 !important;
+}
+
+[class*="ring-emerald-100"] {
+    --tw-ring-color: #D1FAE5 !important;
+}
+
+[class*="text-emerald-600"],
+[class*="text-emerald-700"] {
+    color: #047857 !important;
+}
+
+[class*="bg-emerald-400"] {
+    background-color: #34D399 !important;
+}
+
+[class*="bg-emerald-500"] {
+    background-color: #10B981 !important;
+}
+
+[class*="bg-amber-50"] {
+    background-color: #FFFBEB !important;
+}
+
+[class*="text-amber-600"],
+[class*="text-amber-700"] {
+    color: #92400E !important;
+}
+
+[class*="bg-red-50"] {
+    background-color: #FEF2F2 !important;
+}
+
+[class*="text-red-500"],
+[class*="text-red-600"],
+[class*="text-red-700"] {
+    color: #B91C1C !important;
+}
+
+[class*="bg-blue-50"] {
+    background-color: #EFF6FF !important;
+}
+
+[class*="text-blue-500"],
+[class*="text-blue-600"],
+[class*="text-blue-700"] {
+    color: #1D4ED8 !important;
+}
+
+/* Navigation selection uses a soft brand tint, not a saturated block. */
+[data-role-menu-toggle] {
+    background-color: #ECFDF5 !important;
+    border-color: #D1FAE5 !important;
+    color: #047857 !important;
+}
+
+[data-role-menu] button:hover {
+    background-color: #F1F5F9 !important;
+    color: #047857 !important;
+}
+
+[data-nav-item][class*="bg-[#F96332]"],
+[data-nav-item][class*="bg-[#FF7043]"] {
+    background-color: #ECFDF5 !important;
+    color: #047857 !important;
+}
+
+[data-nav-item][class*="hover:bg-orange-50"]:hover {
+    background-color: #F1F5F9 !important;
+}
+
+/* Role cards share one neutral and emerald interaction treatment. */
+[data-role-card]:not(:has(input:checked)):hover {
+    background-color: #F8FAFC !important;
+    border-color: #10B981 !important;
+}
+
+[data-role-card] input:checked ~ div,
+[data-role-card] [data-selected-badge] {
+    background-color: #D1FAE5 !important;
+    color: #047857 !important;
+}
+
+[data-role-card]:has(input:checked) h2 {
+    color: #064E3B !important;
+}
+
+[data-role-card]:has(input:checked) p[class*="text-sm"] {
+    color: #334155 !important;
 }

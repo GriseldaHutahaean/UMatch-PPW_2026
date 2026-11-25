@@ -20,11 +20,11 @@
             <div class="ml-auto flex items-center gap-2 sm:gap-3">
                 <button type="button" class="relative flex h-10 w-10 items-center justify-center rounded-full border border-gray-200 text-gray-500 transition hover:bg-gray-50" data-toast="Tidak ada notifikasi baru" aria-label="Notifikasi"><x-icon name="bell" size="18" /><span class="absolute right-2 top-2 h-1.5 w-1.5 rounded-full bg-[#2563EB]"></span></button>
                 <div class="relative">
-                    <button type="button" class="flex items-center gap-2 rounded-full border border-[#93C5FD] bg-[#EFF6FF] px-3 py-1.5 text-xs font-bold text-[#2563EB] transition hover:bg-blue-100" data-role-menu-toggle aria-expanded="false">Investor<x-icon name="chevron-down" size="14" /></button>
+<button type="button" class="flex items-center gap-2 rounded-full border border-emerald-100 bg-emerald-50 px-3 py-1.5 text-xs font-bold text-emerald-700 transition hover:bg-slate-100" data-role-menu-toggle aria-expanded="false">Investor<x-icon name="chevron-down" size="14" /></button>
                     <div class="absolute right-0 top-12 hidden w-52 rounded-xl border border-gray-100 bg-white p-1.5 shadow-xl" data-role-menu>
                         <p class="px-3 pb-1.5 pt-2 text-[10px] font-bold uppercase tracking-wider text-gray-400">Ganti Role</p>
                         @foreach (config('umatch.roles') as $roleKey => $availableRole)
-                            <form action="{{ route('roles.select') }}" method="POST">@csrf<input type="hidden" name="role" value="{{ $roleKey }}"><button type="submit" class="flex w-full items-center justify-between rounded-lg px-3 py-2 text-left text-xs font-medium text-gray-700 hover:bg-blue-50 hover:text-[#2563EB]"><span>{{ $availableRole['label'] }}</span>@if ($roleKey === 'investor')<span class="text-[10px] font-bold text-[#2563EB]">Aktif</span>@endif</button></form>
+<form action="{{ route('roles.select') }}" method="POST">@csrf<input type="hidden" name="role" value="{{ $roleKey }}"><button type="submit" class="flex w-full items-center justify-between rounded-lg px-3 py-2 text-left text-xs font-medium text-gray-700 hover:bg-slate-100 hover:text-emerald-700"><span>{{ $availableRole['label'] }}</span>@if ($roleKey === 'investor')<span class="text-[10px] font-bold text-emerald-700">Aktif</span>@endif</button></form>
                         @endforeach
                     </div>
                 </div>

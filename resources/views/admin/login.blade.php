@@ -13,9 +13,9 @@
 <main class="grid min-h-screen lg:grid-cols-2">
 
     {{-- Left panel: dark teal branding --}}
-    <section class="relative hidden overflow-hidden bg-[#0d2b2a] p-10 text-white lg:flex lg:flex-col lg:justify-between lg:p-14">
+<section class="relative hidden overflow-hidden bg-emerald-950 p-10 text-white lg:flex lg:flex-col lg:justify-between lg:p-14">
         <div class="absolute -right-28 -top-28 h-96 w-96 rounded-full bg-[#1a4544]/40"></div>
-        <div class="absolute -bottom-28 -left-28 h-80 w-80 rounded-full bg-[#12b5a8]/15"></div>
+<div class="absolute -bottom-28 -left-28 h-80 w-80 rounded-full bg-emerald-400/15"></div>
 
         {{-- Logo + name --}}
         <a href="/" class="relative z-10 flex items-center gap-3">
@@ -23,13 +23,13 @@
                 <x-logo size="24" />
             </span>
             <span class="text-xl font-extrabold tracking-tight">UMatch</span>
-            <span class="rounded-full bg-[#12b5a8]/25 px-2.5 py-0.5 text-[10px] font-bold uppercase tracking-widest text-[#7ee8e2]">Admin Console</span>
+<span class="rounded-full bg-emerald-400/25 px-2.5 py-0.5 text-[10px] font-bold uppercase tracking-widest text-emerald-200">Admin Console</span>
         </a>
 
         {{-- Hero content --}}
         <div class="relative z-10 max-w-sm">
-            <div class="mb-6 inline-flex items-center gap-2 rounded-full border border-[#12b5a8]/30 bg-[#12b5a8]/10 px-4 py-2 text-xs font-semibold text-[#7ee8e2]">
-                <span class="h-1.5 w-1.5 rounded-full bg-[#12b5a8]"></span>
+<div class="mb-6 inline-flex items-center gap-2 rounded-full border border-emerald-400/30 bg-emerald-400/10 px-4 py-2 text-xs font-semibold text-emerald-200">
+<span class="h-1.5 w-1.5 rounded-full bg-emerald-400"></span>
                 Akses internal terenkripsi
             </div>
             <h1 class="text-4xl font-extrabold leading-tight xl:text-5xl">
@@ -54,7 +54,7 @@
 
             {{-- Mobile logo --}}
             <div class="mb-10 flex items-center gap-3 lg:hidden">
-                <span class="flex h-9 w-9 items-center justify-center rounded-lg bg-[#0d2b2a]">
+<span class="flex h-9 w-9 items-center justify-center rounded-lg bg-emerald-950">
                     <x-logo size="24" />
                 </span>
                 <span class="text-xl font-extrabold text-slate-900">UMatch</span>
@@ -70,7 +70,7 @@
             @endif
 
             {{-- Header --}}
-            <div class="mb-2 text-xs font-bold uppercase tracking-widest text-[#12b5a8]">ADM-01 · Admin Login</div>
+<div class="mb-2 text-xs font-bold uppercase tracking-widest text-emerald-700">ADM-01 · Admin Login</div>
             <h2 class="text-3xl font-extrabold tracking-tight text-slate-900">UMatch Admin Portal</h2>
             <p class="mt-2 text-sm text-slate-500">Secure access for authorized UMatch administrators.</p>
 
@@ -93,7 +93,7 @@
                                 value="{{ old('username') }}"
                                 autocomplete="username"
                                 required
-                                class="h-12 w-full rounded-xl border border-slate-200 bg-slate-50 pl-11 pr-4 text-sm outline-none transition focus:border-[#12b5a8] focus:ring-4 focus:ring-[#12b5a8]/15 @error('username') border-red-400 bg-red-50 @enderror"
+class="h-12 w-full rounded-xl border border-slate-200 bg-slate-50 pl-11 pr-4 text-sm outline-none transition focus:border-emerald-700 focus:ring-4 focus:ring-emerald-200 @error('username') border-red-400 bg-red-50 @enderror"
                                 placeholder="admin username"
                             >
                         </div>
@@ -115,7 +115,7 @@
                                 type="password"
                                 autocomplete="current-password"
                                 required
-                                class="h-12 w-full rounded-xl border border-slate-200 bg-slate-50 pl-11 pr-14 text-sm outline-none transition focus:border-[#12b5a8] focus:ring-4 focus:ring-[#12b5a8]/15 @error('password') border-red-400 bg-red-50 @enderror"
+class="h-12 w-full rounded-xl border border-slate-200 bg-slate-50 pl-11 pr-14 text-sm outline-none transition focus:border-emerald-700 focus:ring-4 focus:ring-emerald-200 @error('password') border-red-400 bg-red-50 @enderror"
                                 placeholder="••••••••"
                             >
                             {{-- Show / Hide password toggle --}}
@@ -143,7 +143,7 @@
                             <input
                                 type="checkbox"
                                 name="remember"
-                                class="h-4 w-4 rounded border-slate-300 text-[#12b5a8] focus:ring-[#12b5a8]/30"
+class="h-4 w-4 rounded border-slate-300 text-emerald-700 focus:ring-emerald-200"
                             >
                             Ingat saya
                         </label>
@@ -154,7 +154,7 @@
                     <button
                         type="submit"
                         id="admin-login-btn"
-                        class="relative h-12 w-full overflow-hidden rounded-xl bg-[#12b5a8] font-bold text-white shadow-lg shadow-[#12b5a8]/25 transition hover:bg-[#0e9f94] disabled:cursor-wait disabled:opacity-60"
+class="relative h-12 w-full overflow-hidden rounded-xl bg-emerald-700 font-bold text-white shadow-lg shadow-emerald-900/25 transition hover:bg-emerald-800 disabled:cursor-wait disabled:opacity-60"
                     >
                         <span id="admin-login-btn-text" class="flex items-center justify-center gap-2">
                             Masuk ke Admin Panel
