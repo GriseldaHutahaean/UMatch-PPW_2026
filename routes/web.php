@@ -63,15 +63,17 @@ Route::middleware('auth')->group(function (): void {
     })->name('dashboard');
 
     // Public role dashboards (admin excluded — admin uses its own /admin/dashboard)
-    foreach (['customer', 'umkm', 'investor'] as $role) {
+    foreach (['customer', 'umkm'] as $role) {
         Route::view("/{$role}/dashboard", 'dashboard', ['role' => $role])
             ->middleware("role:{$role}")
             ->name("{$role}.dashboard");
     }
 
-    Route::get('/investor/dashboard', [InvestorDashboardController::class, 'index'])
-        ->middleware('role:investor')
-        ->name('investor.dashboard');
+    Route::middleware('role:investor')->prefix('investor')->name('investor.')->group(function (): void {
+        Route::get('/dashboard', [InvestorDashboardController::class, 'index'])->name('dashboard');
+        Route::get('/explore', [InvestorDashboardController::class, 'explore'])->name('explore');
+        Route::get('/offers', [InvestorDashboardController::class, 'offers'])->name('offers');
+    });
 
     Route::middleware('role:umkm')->prefix('umkm')->name('umkm.')->group(function (): void {
         Route::get('/products', [UmkmDashboardController::class, 'products'])->name('products');

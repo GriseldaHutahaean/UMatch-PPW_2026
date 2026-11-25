@@ -2,8 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\InvestmentOffer;
+use App\Models\UmkmProfile;
 use Illuminate\Contracts\View\View;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Http\Request;
+use Illuminate\Validation\Rule;
 
 class InvestorDashboardController extends Controller
 {
@@ -22,36 +26,96 @@ class InvestorDashboardController extends Controller
             'riskProfile' => $profile?->tingkat_risiko,
             'today' => now()->locale('id')->translatedFormat('l, d M Y'),
             'kpis' => [
-                ['label' => 'Total Investasi', 'value' => 'Rp 80.000.000', 'change' => '3 UMKM', 'icon' => 'bar-chart', 'iconClass' => 'bg-[#EFF6FF] text-[#2563EB]'],
-                ['label' => 'Nilai Portofolio', 'value' => 'Rp 92.400.000', 'change' => '+15,5%', 'icon' => 'trending-up', 'iconClass' => 'bg-[#E6F7F4] text-[#00A88F]'],
-                ['label' => 'Return Investasi', 'value' => 'Rp 12.400.000', 'change' => '+15,5%', 'icon' => 'file-text', 'iconClass' => 'bg-[#EEF2FF] text-[#6366F1]'],
-                ['label' => 'Tawaran Menunggu', 'value' => '2 tawaran', 'change' => 'Menunggu UMKM', 'icon' => 'users', 'iconClass' => 'bg-[#FFFBEB] text-[#F59E0B]'],
+                ['label' => 'Total Investasi', 'value' => 'Rp 125 juta', 'change' => '+8%', 'iconClass' => 'bg-[#EAF1FA] text-[#1E4E8C]'],
+                ['label' => 'UMKM Didanai', 'value' => '3', 'change' => '+1', 'iconClass' => 'bg-[#E6F7F4] text-[#00A88F]'],
+                ['label' => 'Return Investasi', 'value' => '14,2%', 'change' => '+2,1', 'iconClass' => 'bg-[#E6F7F4] text-[#00A88F]'],
+                ['label' => 'Portofolio Aktif', 'value' => '3', 'change' => 'Aktif', 'iconClass' => 'bg-[#FFF1EB] text-[#FF7043]'],
             ],
-            'chart' => [
-                ['month' => 'Jun', 'short' => '80jt', 'amount' => 'Rp 80.000.000', 'height' => '60%'],
-                ['month' => 'Jul', 'short' => '82jt', 'amount' => 'Rp 82.000.000', 'height' => '68%'],
-                ['month' => 'Agu', 'short' => '84,5jt', 'amount' => 'Rp 84.500.000', 'height' => '76%'],
-                ['month' => 'Sep', 'short' => '87jt', 'amount' => 'Rp 87.000.000', 'height' => '85%'],
-                ['month' => 'Okt', 'short' => '90jt', 'amount' => 'Rp 90.000.000', 'height' => '93%'],
-                ['month' => 'Nov', 'short' => '92,4jt', 'amount' => 'Rp 92.400.000', 'height' => '100%'],
+            'allocations' => [
+                ['name' => 'Dapur Batak', 'amount' => 'Rp 50.000.000', 'percentage' => 40, 'barClass' => 'bg-[#00A88F]', 'textClass' => 'text-[#00A88F]'],
+                ['name' => 'Batik Toba', 'amount' => 'Rp 30.000.000', 'percentage' => 24, 'barClass' => 'bg-[#FF7043]', 'textClass' => 'text-[#FF7043]'],
+                ['name' => 'Kerajinan Nusantara', 'amount' => 'Rp 45.000.000', 'percentage' => 36, 'barClass' => 'bg-[#1E4E8C]', 'textClass' => 'text-[#1E4E8C]'],
+            ],
+            'umkms' => [
+                ['name' => 'Dapur Batak', 'detail' => 'Kuliner • Rp 45jt/bln'],
+                ['name' => 'Batik Toba', 'detail' => 'Fashion • Rp 32jt/bln'],
+                ['name' => 'Kerajinan Nusantara', 'detail' => 'Kerajinan • Rp 28jt/bln'],
             ],
             'offers' => [
                 ['name' => 'Dapur Batak', 'detail' => 'Rp 50 juta • 15% ekuitas • 20 Nov 2026', 'status' => 'Menunggu', 'statusClass' => 'bg-[#FFFBEB] text-[#D97706]'],
-                ['name' => 'Kopi Sidikalang Roasters', 'detail' => 'Rp 30 juta • 10% ekuitas • 18 Nov 2026', 'status' => 'Menunggu', 'statusClass' => 'bg-[#FFFBEB] text-[#D97706]'],
-                ['name' => 'Tenun Ulos Sibolga', 'detail' => 'Rp 25 juta • 8% ekuitas • 10 Nov 2026', 'status' => 'Diterima', 'statusClass' => 'bg-[#ECFDF5] text-[#10B981]'],
-                ['name' => 'Keripik Singkong Balige', 'detail' => 'Rp 15 juta • 5% ekuitas • 02 Nov 2026', 'status' => 'Ditolak', 'statusClass' => 'bg-[#FEF2F2] text-[#EF4444]'],
+                ['name' => 'Batik Toba', 'detail' => 'Rp 30 juta • 10% ekuitas • 10 Nov 2026', 'status' => 'Diterima', 'statusClass' => 'bg-[#ECFDF5] text-[#10B981]'],
+                ['name' => 'Kerajinan Nusantara', 'detail' => 'Rp 15 juta • 5% ekuitas • 02 Nov 2026', 'status' => 'Ditolak', 'statusClass' => 'bg-[#FEF2F2] text-[#EF4444]'],
             ],
-            'umkms' => [
-                ['name' => 'Dapur Batak', 'detail' => 'Makanan • Balige', 'funding' => 'Pendanaan terbuka', 'thumbnail' => 'from-amber-200 via-orange-300 to-emerald-700', 'emoji' => '🍲'],
-                ['name' => 'Kopi Sidikalang Roasters', 'detail' => 'Minuman • Sidikalang', 'funding' => 'Pendanaan terbuka', 'thumbnail' => 'from-stone-800 via-red-900 to-amber-700', 'emoji' => '☕'],
-                ['name' => 'Tenun Ulos Sibolga', 'detail' => 'Kerajinan • Sibolga', 'funding' => 'Pendanaan terbuka', 'thumbnail' => 'from-yellow-200 via-orange-300 to-red-500', 'emoji' => '🧵'],
+            'menus' => [
+                ['label' => 'Jelajahi UMKM', 'icon' => 'search', 'iconClass' => 'bg-[#EAF1FA] text-[#1E4E8C]', 'route' => 'investor.explore'],
+                ['label' => 'Portofolio', 'icon' => 'briefcase', 'iconClass' => 'bg-[#E6F7F4] text-[#00A88F]'],
+                ['label' => 'Tawaran Saya', 'icon' => 'file-text', 'iconClass' => 'bg-[#FFFBEB] text-[#F59E0B]', 'route' => 'investor.offers'],
+                ['label' => 'Verifikasi KYC', 'icon' => 'shield', 'iconClass' => 'bg-[#E6F7F4] text-[#00A88F]'],
+                ['label' => 'Bantuan', 'icon' => 'help-circle', 'iconClass' => 'bg-[#FFF1EB] text-[#FF7043]'],
             ],
-            'quickActions' => [
-                ['label' => 'Jelajah UMKM', 'icon' => 'search', 'iconClass' => 'bg-[#EFF6FF] text-[#2563EB]'],
-                ['label' => 'Tawaran Saya', 'icon' => 'file-text', 'iconClass' => 'bg-[#FFFBEB] text-[#F59E0B]'],
-                ['label' => 'Portofolio', 'icon' => 'bar-chart', 'iconClass' => 'bg-[#E6F7F4] text-[#00A88F]'],
-                ['label' => 'Return Investasi', 'icon' => 'trending-up', 'iconClass' => 'bg-[#EEF2FF] text-[#4F46E5]'],
-            ],
+        ]);
+    }
+
+    /**
+     * Penelusuran UMKM yang sudah terverifikasi, dengan pencarian nama/lokasi,
+     * filter kategori usaha, dan omzet bulan berjalan dari pencatatan keuangan UMKM.
+     */
+    public function explore(Request $request): View
+    {
+        $validated = $request->validate([
+            'q' => ['nullable', 'string', 'max:100'],
+            'kategori' => ['nullable', 'string', 'max:255'],
+        ]);
+
+        $search = $validated['q'] ?? null;
+        $category = $validated['kategori'] ?? null;
+
+        $verifiedUmkms = UmkmProfile::query()->where('status_verifikasi', 'verified');
+
+        $umkms = (clone $verifiedUmkms)
+            ->when($search, fn (Builder $query, string $search) => $query->where(function (Builder $query) use ($search): void {
+                $query->where('nama_usaha', 'like', "%{$search}%")
+                    ->orWhere('alamat_usaha', 'like', "%{$search}%");
+            }))
+            ->when($category, fn (Builder $query, string $category) => $query->where('kategori_usaha', $category))
+            ->withSum(['financialTransactions as monthly_revenue' => fn (Builder $query) => $query
+                ->where('jenis', 'pemasukan')
+                ->whereDate('tanggal', '>=', now()->startOfMonth())
+                ->whereDate('tanggal', '<=', now()->endOfMonth())], 'nominal')
+            ->orderByDesc('terima_investasi')
+            ->orderBy('nama_usaha')
+            ->get();
+
+        return view('investor.explore', [
+            'umkms' => $umkms,
+            'categories' => $verifiedUmkms->distinct()->orderBy('kategori_usaha')->pluck('kategori_usaha'),
+            'search' => $search,
+            'category' => $category,
+        ]);
+    }
+
+    /**
+     * Daftar tawaran investasi milik investor yang sedang login, dengan filter status.
+     */
+    public function offers(Request $request): View
+    {
+        $validated = $request->validate([
+            'status' => ['nullable', 'string', Rule::in(['menunggu', 'diterima', 'ditolak'])],
+        ]);
+
+        $status = $validated['status'] ?? null;
+
+        $allOffers = InvestmentOffer::query()
+            ->with('umkmProfile')
+            ->whereRelation('investorProfile', 'user_id', $request->user()->getKey())
+            ->latest('tanggal_pengajuan')
+            ->get();
+
+        return view('investor.offers', [
+            'offers' => $status ? $allOffers->where('status_penawaran', $status) : $allOffers,
+            'totalOffers' => $allOffers->count(),
+            'statusCounts' => $allOffers->countBy('status_penawaran'),
+            'status' => $status,
         ]);
     }
 }

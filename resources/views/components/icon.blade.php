@@ -31,5 +31,7 @@
         @case('box')<path d="m4 7 8-4 8 4-8 4zM4 7v10l8 4 8-4V7M12 11v10"/>@break
         @case('menu')<path d="M4 6h16M4 12h16M4 18h16"/>@break
         @case('x')<path d="m6 6 12 12M18 6 6 18"/>@break
+        @case('briefcase')<rect x="3" y="7" width="18" height="13" rx="2"/><path d="M9 7V5a2 2 0 0 1 2-2h2a2 2 0 0 1 2 2v2M3 13h18"/>@break
+        @case('help-circle')<circle cx="12" cy="12" r="9"/><path d="M9.5 9a2.5 2.5 0 1 1 3.5 2.3c-.7.3-1 .9-1 1.7M12 17h.01"/>@break
     @endswitch
 </svg>
