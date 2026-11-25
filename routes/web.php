@@ -72,6 +72,7 @@ Route::middleware('auth')->group(function (): void {
     Route::middleware('role:investor')->prefix('investor')->name('investor.')->group(function (): void {
         Route::get('/dashboard', [InvestorDashboardController::class, 'index'])->name('dashboard');
         Route::get('/explore', [InvestorDashboardController::class, 'explore'])->name('explore');
+        Route::get('/offers', [InvestorDashboardController::class, 'offers'])->name('offers');
     });
 
     Route::middleware('role:umkm')->prefix('umkm')->name('umkm.')->group(function (): void {

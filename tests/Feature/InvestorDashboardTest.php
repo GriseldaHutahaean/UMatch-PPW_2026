@@ -1,9 +1,12 @@
 <?php
 
+use App\Models\FinancialCategory;
+use App\Models\InvestmentOffer;
 use App\Models\InvestorProfile;
 use App\Models\Role;
 use App\Models\UmkmProfile;
 use App\Models\User;
+use Database\Seeders\InvestmentOfferSeeder;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Support\Str;
 use Tests\TestCase;
@@ -48,8 +51,50 @@ it('shows the investor dashboard with the KYC status and risk profile of the inv
         ->assertSee('Dashboard Investor')
         ->assertSee('KYC Terverifikasi')
         ->assertSee('Profil Risiko: Moderat')
-        ->assertSee('Perkembangan Portofolio')
-        ->assertSee('Tawaran Investasi Terbaru');
+        ->assertSeeInOrder(['Total Investasi', 'UMKM Didanai', 'Return Investasi', 'Portofolio Aktif'])
+        ->assertSeeInOrder(['Alokasi Investasi', 'UMKM Terverifikasi', 'Tawaran Investasi Terbaru', 'Menu'])
+        ->assertSeeInOrder(['Jelajahi UMKM', 'Portofolio', 'Tawaran Saya', 'Verifikasi KYC', 'Bantuan']);
+});
+
+it('searches UMKM from the header search box', function (): void {
+    $user = createUserWithRole('investor', 'header-search@example.test');
+
+    $this->actingAs($user)
+        ->get(route('investor.dashboard'))
+        ->assertSee('action="'.route('investor.explore').'" role="search"', false);
+});
+
+it('shows the current month revenue of a verified UMKM', function (): void {
+    $user = createUserWithRole('investor', 'revenue@example.test');
+    $umkm = createUmkmProfile('Dapur Batak', 'Makanan', 'verified');
+    $category = FinancialCategory::query()->create(['nama_kategori' => 'Penjualan', 'jenis' => 'pemasukan']);
+
+    foreach ([
+        ['pemasukan', 1500000, now()],
+        ['pemasukan', 500000, now()->startOfMonth()],
+        ['pengeluaran', 900000, now()],
+        ['pemasukan', 7000000, now()->subMonthsNoOverflow()],
+    ] as [$type, $amount, $date]) {
+        $umkm->financialTransactions()->create([
+            'fin_category_id' => $category->getKey(),
+            'jenis' => $type,
+            'nominal' => $amount,
+            'tanggal' => $date->toDateString(),
+        ]);
+    }
+
+    $this->actingAs($user)
+        ->get(route('investor.explore'))
+        ->assertSee('Rp 2.000.000');
+});
+
+it('tells the investor when a UMKM has no transaction data', function (): void {
+    $user = createUserWithRole('investor', 'no-revenue@example.test');
+    createUmkmProfile('Toko Baru', 'Makanan', 'verified');
+
+    $this->actingAs($user)
+        ->get(route('investor.explore'))
+        ->assertSee('Belum ada data transaksi');
 });
 
 it('shows a pending KYC status when the investor is not verified yet', function (): void {
@@ -172,4 +217,106 @@ it('forbids users without the investor role from the explore page', function ():
     $this->actingAs($customer)
         ->get(route('investor.explore'))
         ->assertForbidden();
+});
+
+function createInvestorProfile(User $user): InvestorProfile
+{
+    return InvestorProfile::query()->create([
+        'user_id' => $user->getKey(),
+        'nik' => '1234567890123456',
+        'pekerjaan' => 'Wiraswasta',
+        'penghasilan' => 10000000,
+        'jenis_investor' => 'Individu',
+        'tingkat_risiko' => 'Moderat',
+        'tujuan_investasi' => 'Pertumbuhan modal',
+        'status_verifikasi' => 'verified',
+    ]);
+}
+
+it('links the Tawaran Saya quick action and Tawaran menu to the offers page', function (): void {
+    $user = createUserWithRole('investor', 'offer-links@example.test');
+
+    $this->actingAs($user)
+        ->get(route('investor.dashboard'))
+        ->assertOk()
+        ->assertSee('href="'.route('investor.offers').'"', false);
+});
+
+it('lists only the offers that belong to the logged in investor', function (): void {
+    $user = createUserWithRole('investor', 'my-offers@example.test');
+    $otherUser = createUserWithRole('investor', 'other-offers@example.test');
+    InvestmentOffer::factory()->create([
+        'investor_profile_id' => createInvestorProfile($user)->getKey(),
+        'umkm_profile_id' => createUmkmProfile('Dapur Batak', 'Makanan', 'verified')->getKey(),
+        'jumlah_penawaran' => 50000000,
+        'skema_investasi' => '15% ekuitas',
+    ]);
+    InvestmentOffer::factory()->create([
+        'investor_profile_id' => createInvestorProfile($otherUser)->getKey(),
+        'umkm_profile_id' => createUmkmProfile('Toko Orang Lain', 'Makanan', 'verified')->getKey(),
+    ]);
+
+    $this->actingAs($user)
+        ->get(route('investor.offers'))
+        ->assertOk()
+        ->assertSee('Dapur Batak')
+        ->assertSee('Rp 50.000.000')
+        ->assertSee('15% ekuitas')
+        ->assertSee('1 tawaran investasi dikirim ke UMKM')
+        ->assertDontSee('Toko Orang Lain');
+});
+
+it('filters offers by status', function (): void {
+    $user = createUserWithRole('investor', 'status-offers@example.test');
+    $profile = createInvestorProfile($user);
+    InvestmentOffer::factory()->create([
+        'investor_profile_id' => $profile->getKey(),
+        'umkm_profile_id' => createUmkmProfile('Kopi Menunggu', 'Minuman', 'verified')->getKey(),
+    ]);
+    InvestmentOffer::factory()->accepted()->create([
+        'investor_profile_id' => $profile->getKey(),
+        'umkm_profile_id' => createUmkmProfile('Tenun Diterima', 'Kerajinan', 'verified')->getKey(),
+    ]);
+
+    $this->actingAs($user)
+        ->get(route('investor.offers', ['status' => 'diterima']))
+        ->assertSee('Tenun Diterima')
+        ->assertDontSee('Kopi Menunggu')
+        ->assertSee('Semua (2)')
+        ->assertSee('Menunggu (1)');
+});
+
+it('rejects an unknown offer status filter', function (): void {
+    $user = createUserWithRole('investor', 'bad-status@example.test');
+
+    $this->actingAs($user)
+        ->get(route('investor.offers', ['status' => 'ngawur']))
+        ->assertSessionHasErrors('status');
+});
+
+it('shows an empty state when the investor has no offers', function (): void {
+    $user = createUserWithRole('investor', 'no-offers@example.test');
+
+    $this->actingAs($user)
+        ->get(route('investor.offers'))
+        ->assertOk()
+        ->assertSee('Kamu belum mengirim tawaran');
+});
+
+it('forbids users without the investor role from the offers page', function (): void {
+    $customer = createUserWithRole('customer', 'customer-offers@example.test');
+
+    $this->actingAs($customer)
+        ->get(route('investor.offers'))
+        ->assertForbidden();
+});
+
+it('seeds sample offers without creating duplicates', function (): void {
+    createInvestorProfile(createUserWithRole('investor', 'seeded@example.test'));
+    createUmkmProfile('Dapur Batak', 'Makanan', 'verified');
+
+    $this->seed(InvestmentOfferSeeder::class);
+    $this->seed(InvestmentOfferSeeder::class);
+
+    expect(InvestmentOffer::query()->count())->toBe(1);
 });
