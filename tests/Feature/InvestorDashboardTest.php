@@ -1,11 +1,13 @@
 <?php
 
+use App\Models\Faq;
 use App\Models\FinancialCategory;
 use App\Models\InvestmentOffer;
 use App\Models\InvestorProfile;
 use App\Models\Role;
 use App\Models\UmkmProfile;
 use App\Models\User;
+use Database\Seeders\FaqSeeder;
 use Database\Seeders\InvestmentOfferSeeder;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Support\Str;
@@ -319,4 +321,74 @@ it('seeds sample offers without creating duplicates', function (): void {
     $this->seed(InvestmentOfferSeeder::class);
 
     expect(InvestmentOffer::query()->count())->toBe(1);
+});
+
+function createAdminFaq(string $question, ?string $targetRole = null, string $category = 'Akun'): Faq
+{
+    $admin = User::query()->firstWhere('email', 'faq-admin@example.test')
+        ?? createUserWithRole('admin', 'faq-admin@example.test');
+
+    return Faq::factory()->create([
+        'user_id' => $admin->getKey(),
+        'pertanyaan' => $question,
+        'kategori' => $category,
+        'target_role' => $targetRole,
+    ]);
+}
+
+it('links the Bantuan menu to the help center', function (): void {
+    $user = createUserWithRole('investor', 'help-links@example.test');
+
+    $this->actingAs($user)
+        ->get(route('investor.dashboard'))
+        ->assertSee('href="'.route('investor.help').'"', false);
+});
+
+it('shows general and investor FAQ grouped by category', function (): void {
+    $user = createUserWithRole('investor', 'help@example.test');
+    createAdminFaq('Pertanyaan umum?');
+    createAdminFaq('Pertanyaan investor?', 'investor', 'Investasi');
+    createAdminFaq('Pertanyaan khusus UMKM?', 'umkm');
+
+    $this->actingAs($user)
+        ->get(route('investor.help'))
+        ->assertOk()
+        ->assertSeeInOrder(['Akun', 'Pertanyaan umum?', 'Investasi', 'Pertanyaan investor?'])
+        ->assertDontSee('Pertanyaan khusus UMKM?');
+});
+
+it('shows the official contact even when there is no FAQ yet', function (): void {
+    config(['umatch.support_email' => 'kontak@example.test']);
+    $user = createUserWithRole('investor', 'help-empty@example.test');
+
+    $this->actingAs($user)
+        ->get(route('investor.help'))
+        ->assertOk()
+        ->assertSee('Belum ada FAQ')
+        ->assertSee('mailto:kontak@example.test', false);
+});
+
+it('forbids users without the investor role from the investor help center', function (): void {
+    $customer = createUserWithRole('customer', 'customer-help@example.test');
+
+    $this->actingAs($customer)
+        ->get(route('investor.help'))
+        ->assertForbidden();
+});
+
+it('seeds the FAQ once under an admin account', function (): void {
+    createUserWithRole('admin', 'seed-admin@example.test');
+
+    $this->seed(FaqSeeder::class);
+    $total = Faq::query()->count();
+    $this->seed(FaqSeeder::class);
+
+    expect($total)->toBeGreaterThan(0)
+        ->and(Faq::query()->count())->toBe($total);
+});
+
+it('does not seed the FAQ when there is no admin account', function (): void {
+    $this->seed(FaqSeeder::class);
+
+    expect(Faq::query()->count())->toBe(0);
 });

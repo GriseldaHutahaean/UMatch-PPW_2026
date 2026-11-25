@@ -7,7 +7,7 @@
         ['Notifikasi', 'bell', null],
         ['Profil', 'user', null],
         ['KYC', 'shield', null],
-        ['Bantuan', 'help-circle', null],
+        ['Bantuan', 'help-circle', 'investor.help'],
     ])
     @foreach ($items as [$label, $icon, $route])
         @if ($route)

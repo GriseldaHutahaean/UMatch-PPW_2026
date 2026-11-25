@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Faq;
 use App\Models\InvestmentOffer;
 use App\Models\UmkmProfile;
 use Illuminate\Contracts\View\View;
@@ -51,7 +52,7 @@ class InvestorDashboardController extends Controller
                 ['label' => 'Portofolio', 'icon' => 'briefcase', 'iconClass' => 'bg-[#E6F7F4] text-[#00A88F]'],
                 ['label' => 'Tawaran Saya', 'icon' => 'file-text', 'iconClass' => 'bg-[#FFFBEB] text-[#F59E0B]', 'route' => 'investor.offers'],
                 ['label' => 'Verifikasi KYC', 'icon' => 'shield', 'iconClass' => 'bg-[#E6F7F4] text-[#00A88F]'],
-                ['label' => 'Bantuan', 'icon' => 'help-circle', 'iconClass' => 'bg-[#FFF1EB] text-[#FF7043]'],
+                ['label' => 'Bantuan', 'icon' => 'help-circle', 'iconClass' => 'bg-[#FFF1EB] text-[#FF7043]', 'route' => 'investor.help'],
             ],
         ]);
     }
@@ -116,6 +117,22 @@ class InvestorDashboardController extends Controller
             'totalOffers' => $allOffers->count(),
             'statusCounts' => $allOffers->countBy('status_penawaran'),
             'status' => $status,
+        ]);
+    }
+
+    /**
+     * Pusat Bantuan: FAQ untuk investor, dikelompokkan per kategori, beserta kontak resmi.
+     */
+    public function help(): View
+    {
+        return view('investor.help', [
+            'faqGroups' => Faq::query()
+                ->forRole('investor')
+                ->orderBy('kategori')
+                ->orderBy('faq_id')
+                ->get()
+                ->groupBy('kategori'),
+            'supportEmail' => config('umatch.support_email'),
         ]);
     }
 }

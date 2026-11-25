@@ -2,6 +2,8 @@
 
 // Teks dan tema tiap peran, dipakai di halaman Pilih Peran, Login, dan Daftar.
 return [
+    // Kontak resmi yang tampil di Pusat Bantuan. Isi UMATCH_SUPPORT_EMAIL dengan alamat asli.
+    'support_email' => env('UMATCH_SUPPORT_EMAIL', 'bantuan@umatch.test'),
     'roles' => [
         'customer' => [
             'label' => 'Customer',
