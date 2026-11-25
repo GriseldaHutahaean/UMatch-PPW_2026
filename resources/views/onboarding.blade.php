@@ -11,7 +11,7 @@
     ];
 @endphp
 
-<main id="onboarding" class="min-h-screen w-full overflow-x-hidden bg-[#e9faf7]">
+<main id="onboarding" class="min-h-screen w-full overflow-x-hidden bg-slate-50">
     <section class="min-h-screen transition-colors duration-500" data-onboarding-shell>
         <header class="relative z-10 flex h-[68px] items-center justify-between border-b border-slate-100 bg-white px-5 sm:px-8 lg:px-[3.25rem]">
             <a href="{{ route('landing') }}" class="flex items-center gap-2.5 rounded-xl focus:outline-none focus:ring-4 focus:ring-slate-200" aria-label="UMatch, kembali ke halaman utama">
@@ -39,7 +39,7 @@
             </div>
 
             <div class="order-2 flex w-full flex-col items-center text-center sm:items-start sm:text-left">
-                <div data-slide-icon class="flex h-12 w-12 items-center justify-center rounded-2xl bg-white text-teal-600 shadow-[0_5px_14px_rgba(15,23,42,0.10)] ring-1 ring-slate-100"></div>
+                <div data-slide-icon class="flex h-12 w-12 items-center justify-center rounded-2xl bg-white text-emerald-700 shadow-[0_5px_14px_rgba(15,23,42,0.10)] ring-1 ring-slate-100"></div>
                 <p class="mt-6 text-[10px] font-extrabold uppercase tracking-[0.28em] text-slate-400 sm:text-[11px]">Satu akun untuk banyak kemungkinan</p>
                 <h1 data-slide-title aria-live="polite" class="mt-4 max-w-md text-3xl font-extrabold leading-[1.12] tracking-tight text-slate-900 sm:text-[clamp(2rem,5.5vw,3rem)] lg:text-[48px]"></h1>
                 <p data-slide-description class="mt-4 max-w-md text-[13px] leading-6 text-slate-500 sm:text-sm sm:leading-7"></p>
@@ -81,9 +81,9 @@ const iconMarkup = {
     trend: '<svg width="27" height="27" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 17l6-6 4 4 8-8"/><path d="M14 7h7v7"/></svg>',
 };
 const themeClasses = {
-    mint: { background: 'bg-[#e9faf7]', button: 'bg-[#00a99d]', icon: 'text-[#00a99d]', progress: 'bg-[#00a99d]' },
-    peach: { background: 'bg-[#fff3ee]', button: 'bg-[#ff6946]', icon: 'text-[#ff6946]', progress: 'bg-[#ff6946]' },
-    blue: { background: 'bg-[#eef5ff]', button: 'bg-[#205a98]', icon: 'text-[#205a98]', progress: 'bg-[#205a98]' },
+    mint: { background: 'bg-slate-50', button: 'bg-emerald-700', icon: 'text-emerald-700', progress: 'bg-emerald-500' },
+    peach: { background: 'bg-slate-50', button: 'bg-emerald-700', icon: 'text-emerald-700', progress: 'bg-emerald-500' },
+    blue: { background: 'bg-slate-50', button: 'bg-emerald-700', icon: 'text-emerald-700', progress: 'bg-emerald-500' },
 };
 
 function renderSlide() {

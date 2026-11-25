@@ -3,9 +3,9 @@
 @php
     $role = config("umatch.roles.{$selectedRole}");
     $roleStyles = [
-        'customer' => ['panel' => 'bg-[#00a99d]', 'panelSoft' => 'bg-white/15', 'panelText' => 'text-white/80', 'accent' => 'text-teal-700', 'accentBg' => 'bg-[#00a99d]', 'accentSoft' => 'bg-teal-50', 'accentHover' => 'hover:bg-[#008f86]', 'focus' => 'focus:border-teal-500 focus:ring-teal-500/15', 'icon' => 'bag'],
-        'umkm' => ['panel' => 'bg-[#ff6946]', 'panelSoft' => 'bg-white/15', 'panelText' => 'text-white/80', 'accent' => 'text-orange-700', 'accentBg' => 'bg-[#ff6946]', 'accentSoft' => 'bg-orange-50', 'accentHover' => 'hover:bg-[#e85b3d]', 'focus' => 'focus:border-orange-500 focus:ring-orange-500/15', 'icon' => 'store'],
-        'investor' => ['panel' => 'bg-[#205a98]', 'panelSoft' => 'bg-white/15', 'panelText' => 'text-white/80', 'accent' => 'text-blue-700', 'accentBg' => 'bg-[#205a98]', 'accentSoft' => 'bg-blue-50', 'accentHover' => 'hover:bg-[#174675]', 'focus' => 'focus:border-blue-500 focus:ring-blue-500/15', 'icon' => 'trend'],
+        'customer' => ['panel' => 'bg-emerald-800', 'panelSoft' => 'bg-white/15', 'panelText' => 'text-white/80', 'accent' => 'text-emerald-700', 'accentBg' => 'bg-emerald-700', 'accentSoft' => 'bg-emerald-50', 'accentHover' => 'hover:bg-emerald-800', 'focus' => 'focus:border-emerald-700 focus:ring-emerald-200/60', 'icon' => 'bag'],
+        'umkm' => ['panel' => 'bg-emerald-800', 'panelSoft' => 'bg-white/15', 'panelText' => 'text-white/80', 'accent' => 'text-emerald-700', 'accentBg' => 'bg-emerald-700', 'accentSoft' => 'bg-emerald-50', 'accentHover' => 'hover:bg-emerald-800', 'focus' => 'focus:border-emerald-700 focus:ring-emerald-200/60', 'icon' => 'store'],
+        'investor' => ['panel' => 'bg-emerald-800', 'panelSoft' => 'bg-white/15', 'panelText' => 'text-white/80', 'accent' => 'text-emerald-700', 'accentBg' => 'bg-emerald-700', 'accentSoft' => 'bg-emerald-50', 'accentHover' => 'hover:bg-emerald-800', 'focus' => 'focus:border-emerald-700 focus:ring-emerald-200/60', 'icon' => 'trend'],
     ][$selectedRole];
 @endphp
 

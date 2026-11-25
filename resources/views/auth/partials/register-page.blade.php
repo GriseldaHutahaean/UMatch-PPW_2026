@@ -1,24 +1,24 @@
 @php
     $presentation = match ($selectedRole) {
         'customer' => [
-            'accent' => 'text-teal-700',
-            'button' => 'bg-[#00a99d] hover:bg-[#008f86]',
+            'accent' => 'text-emerald-700',
+            'button' => 'bg-emerald-700 hover:bg-emerald-800',
             'icon' => 'bag',
-            'panel' => 'bg-[#00a99d]',
+            'panel' => 'bg-emerald-800',
             'roleTitle' => 'Daftar sebagai Customer',
         ],
         'umkm' => [
-            'accent' => 'text-orange-700',
-            'button' => 'bg-[#ff6946] hover:bg-[#e85b3d]',
+            'accent' => 'text-emerald-700',
+            'button' => 'bg-emerald-700 hover:bg-emerald-800',
             'icon' => 'store',
-            'panel' => 'bg-[#ff6946]',
+            'panel' => 'bg-emerald-800',
             'roleTitle' => 'Daftar sebagai UMKM',
         ],
         default => [
-            'accent' => 'text-blue-700',
-            'button' => 'bg-[#205a98] hover:bg-[#174675]',
+            'accent' => 'text-emerald-700',
+            'button' => 'bg-emerald-700 hover:bg-emerald-800',
             'icon' => 'trend',
-            'panel' => 'bg-[#205a98]',
+            'panel' => 'bg-emerald-800',
             'roleTitle' => 'Daftar sebagai Investor',
         ],
     };
@@ -68,7 +68,7 @@
             </header>
 
             <div class="rounded-[2rem] border border-slate-100 bg-white p-6 shadow-lg shadow-slate-900/5 sm:p-8">
-                <div class="mb-7 rounded-2xl border border-teal-100 bg-teal-50 px-5 py-4 leading-7 text-teal-800">
+ <div class="mb-7 rounded-2xl border border-emerald-100 bg-emerald-50 px-5 py-4 leading-7 text-emerald-800">
                     @if ($isAddingRole)
                         Profil role ini akan ditautkan ke akun <strong>{{ auth()->user()->email }}</strong> tanpa membuat akun baru.
                     @else
@@ -171,7 +171,7 @@
                             <input id="kontak_usaha" name="kontak_usaha" value="{{ old('kontak_usaha') }}" class="h-14 w-full rounded-2xl border border-slate-200 bg-slate-50 px-4 text-slate-900 outline-none transition focus:border-slate-400 focus:bg-white focus:ring-4 focus:ring-slate-100">
                         </div>
                         <label class="flex items-center gap-3 rounded-2xl border border-slate-200 p-4 text-sm font-semibold text-slate-700">
-                            <input type="checkbox" name="terima_investasi" value="1" @checked(old('terima_investasi')) class="rounded border-slate-300 text-orange-600 focus:ring-orange-500">
+ <input type="checkbox" name="terima_investasi" value="1" @checked(old('terima_investasi')) class="rounded border-slate-300 text-emerald-700 focus:ring-emerald-500">
                             Saya terbuka menerima penawaran investasi
                         </label>
                         <div>
@@ -185,7 +185,7 @@
                         </div>
                         <div>
                             <label for="dokumen_usaha" class="mb-2 block text-sm font-bold text-slate-700">Unggah Dokumen Usaha</label>
-                            <input id="dokumen_usaha" name="dokumen_usaha" type="file" accept=".pdf,.jpg,.jpeg,.png" required class="block w-full rounded-2xl border border-slate-200 bg-slate-50 p-3 text-sm text-slate-600 file:mr-4 file:rounded-xl file:border-0 file:bg-orange-50 file:px-4 file:py-2 file:font-bold file:text-orange-700">
+ <input id="dokumen_usaha" name="dokumen_usaha" type="file" accept=".pdf,.jpg,.jpeg,.png" required class="block w-full rounded-2xl border border-slate-200 bg-slate-50 p-3 text-sm text-slate-600 file:mr-4 file:rounded-xl file:border-0 file:bg-emerald-50 file:px-4 file:py-2 file:font-bold file:text-emerald-700">
                             <p class="mt-2 text-xs text-slate-500">PDF/JPG/PNG, maksimal 5 MB. File disimpan secara privat.</p>
                         </div>
                     @else
@@ -229,12 +229,12 @@
                         </div>
                         <div>
                             <label for="ktp" class="mb-2 block text-sm font-bold text-slate-700">Unggah KTP</label>
-                            <input id="ktp" name="ktp" type="file" accept=".pdf,.jpg,.jpeg,.png" required class="block w-full rounded-2xl border border-slate-200 bg-slate-50 p-3 text-sm text-slate-600 file:mr-4 file:rounded-xl file:border-0 file:bg-blue-50 file:px-4 file:py-2 file:font-bold file:text-blue-700">
+ <input id="ktp" name="ktp" type="file" accept=".pdf,.jpg,.jpeg,.png" required class="block w-full rounded-2xl border border-slate-200 bg-slate-50 p-3 text-sm text-slate-600 file:mr-4 file:rounded-xl file:border-0 file:bg-emerald-50 file:px-4 file:py-2 file:font-bold file:text-emerald-700">
                             <p class="mt-2 text-xs text-slate-500">PDF/JPG/PNG, maksimal 5 MB. Disimpan privat untuk pemeriksaan manual.</p>
                         </div>
                         <div>
                             <label for="selfie" class="mb-2 block text-sm font-bold text-slate-700">Unggah Selfie untuk Verifikasi Manual</label>
-                            <input id="selfie" name="selfie" type="file" accept=".jpg,.jpeg,.png,.webp" required class="block w-full rounded-2xl border border-slate-200 bg-slate-50 p-3 text-sm text-slate-600 file:mr-4 file:rounded-xl file:border-0 file:bg-blue-50 file:px-4 file:py-2 file:font-bold file:text-blue-700">
+ <input id="selfie" name="selfie" type="file" accept=".jpg,.jpeg,.png,.webp" required class="block w-full rounded-2xl border border-slate-200 bg-slate-50 p-3 text-sm text-slate-600 file:mr-4 file:rounded-xl file:border-0 file:bg-emerald-50 file:px-4 file:py-2 file:font-bold file:text-emerald-700">
                             <p class="mt-2 text-xs text-slate-500">JPG/PNG/WEBP, maksimal 5 MB. Pemeriksaan dilakukan Admin, bukan face recognition otomatis.</p>
                         </div>
                     @endif

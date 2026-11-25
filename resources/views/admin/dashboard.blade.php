@@ -8,12 +8,12 @@
     <link href="https://fonts.bunny.net/css?family=plus-jakarta-sans:400,500,600,700,800&display=swap" rel="stylesheet">
     @vite(['resources/css/app.css', 'resources/js/app.js'])
 </head>
-<body class="min-h-screen bg-[#f4f7f9] font-[Plus_Jakarta_Sans,ui-sans-serif,sans-serif] text-slate-900">
+<body class="min-h-screen bg-slate-50 font-[Plus_Jakarta_Sans,ui-sans-serif,sans-serif] text-slate-900">
 
 <div class="flex min-h-screen">
 
     {{-- ===== Sidebar ===== --}}
-    <aside class="fixed inset-y-0 left-0 z-30 flex w-[220px] flex-col bg-[#0d2b2a] text-white">
+<aside class="fixed inset-y-0 left-0 z-30 flex w-[220px] flex-col bg-emerald-950 text-white">
 
         {{-- Logo --}}
         <div class="flex items-center gap-3 px-5 py-5 border-b border-white/10">
@@ -22,14 +22,14 @@
             </span>
             <div>
                 <span class="block text-sm font-extrabold tracking-tight leading-tight">UMatch</span>
-                <span class="block text-[10px] font-semibold uppercase tracking-widest text-[#7ee8e2]">Admin Console</span>
+<span class="block text-[10px] font-semibold uppercase tracking-widest text-emerald-200">Admin Console</span>
             </div>
         </div>
 
         {{-- Navigation --}}
         <nav class="flex-1 overflow-y-auto px-3 py-5 space-y-1 text-xs font-semibold">
             <p class="px-3 pb-1 pt-3 text-[9px] font-bold uppercase tracking-widest text-slate-500">Workspace</p>
-            <a href="{{ route('admin.dashboard') }}" class="flex items-center gap-3 rounded-lg bg-[#12b5a8] px-3 py-2.5 text-white">
+<a href="{{ route('admin.dashboard') }}" class="flex items-center gap-3 rounded-lg bg-emerald-700 px-3 py-2.5 text-white">
                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" aria-hidden="true"><rect x="3" y="3" width="7" height="7" rx="1" /><rect x="14" y="3" width="7" height="7" rx="1" /><rect x="3" y="14" width="7" height="7" rx="1" /><rect x="14" y="14" width="7" height="7" rx="1" /></svg>
                 Dashboard
             </a>
@@ -58,7 +58,7 @@
                         {{ $item['label'] }}
                     </span>
                     @if ($item['count'])
-                        <span class="rounded-full bg-[#12b5a8] px-2 py-0.5 text-[10px] font-bold text-white">{{ $item['count'] }}</span>
+<span class="rounded-full bg-emerald-700 px-2 py-0.5 text-[10px] font-bold text-white">{{ $item['count'] }}</span>
                     @endif
                 </button>
             @endforeach
@@ -74,7 +74,7 @@
                 <button type="button" class="flex w-full items-center justify-between gap-3 rounded-lg px-3 py-2.5 text-slate-400 transition hover:bg-white/10 hover:text-white">
                     <span>{{ $item['label'] }}</span>
                     @if ($item['count'])
-                        <span class="rounded-full bg-[#12b5a8] px-2 py-0.5 text-[10px] font-bold text-white">{{ $item['count'] }}</span>
+<span class="rounded-full bg-emerald-700 px-2 py-0.5 text-[10px] font-bold text-white">{{ $item['count'] }}</span>
                     @endif
                 </button>
             @endforeach
@@ -83,7 +83,7 @@
         {{-- Admin identity --}}
         <div class="border-t border-white/10 p-4">
             <div class="flex items-center gap-3">
-                <span class="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-[#12b5a8] text-sm font-bold text-white uppercase">
+<span class="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-emerald-700 text-sm font-bold text-white uppercase">
                     {{ substr($admin->getAdminDisplayName(), 0, 2) }}
                 </span>
                 <div class="min-w-0">
@@ -109,7 +109,7 @@
         {{-- Top bar --}}
         <header class="sticky top-0 z-20 flex h-14 items-center justify-between border-b border-slate-200 bg-white px-6 shadow-sm">
             <div>
-                <span class="text-[10px] font-bold uppercase tracking-widest text-[#12b5a8]">ADM-02 · PUSAT KENDALI</span>
+<span class="text-[10px] font-bold uppercase tracking-widest text-emerald-700">ADM-02 · PUSAT KENDALI</span>
                 <h1 class="text-xl font-extrabold text-slate-900">Dashboard</h1>
             </div>
             <div class="flex items-center gap-3">
@@ -119,7 +119,7 @@
                 </button>
 
                 <div class="flex items-center gap-2 rounded-full border border-slate-200 bg-slate-50 px-3 py-1.5">
-                    <span class="flex h-6 w-6 items-center justify-center rounded-full bg-[#12b5a8] text-[10px] font-bold text-white uppercase">
+<span class="flex h-6 w-6 items-center justify-center rounded-full bg-emerald-700 text-[10px] font-bold text-white uppercase">
                         {{ substr($admin->getAdminDisplayName(), 0, 2) }}
                     </span>
                     <div>
@@ -143,22 +143,22 @@
             <p class="mb-6 text-sm text-slate-500">Ringkasan aktivitas dan kesehatan ekosistem UMatch.</p>
 
             {{-- Welcome banner --}}
-            <div class="mb-6 flex items-center gap-3 rounded-xl border border-[#12b5a8]/30 bg-[#f0fdfb] px-5 py-4">
-                <span class="flex h-9 w-9 items-center justify-center rounded-full bg-[#12b5a8] text-sm font-bold text-white uppercase">
+<div class="mb-6 flex items-center gap-3 rounded-xl border border-emerald-100 bg-emerald-50 px-5 py-4">
+<span class="flex h-9 w-9 items-center justify-center rounded-full bg-emerald-700 text-sm font-bold text-white uppercase">
                     {{ substr($admin->getAdminDisplayName(), 0, 2) }}
                 </span>
                 <div>
                     <p class="text-sm font-bold text-slate-900">Welcome back, {{ $admin->getAdminDisplayName() }}.</p>
-                    <p class="text-xs text-slate-500">Role: <span class="font-semibold text-[#12b5a8]">Administrator</span> · @{{ $admin->username_admin }}</p>
+<p class="text-xs text-slate-500">Role: <span class="font-semibold text-emerald-700">Administrator</span> · @{{ $admin->username_admin }}</p>
                 </div>
             </div>
 
             {{-- KPI cards --}}
             <div class="grid grid-cols-1 gap-4 sm:grid-cols-2 xl:grid-cols-4">
                 @foreach ([
-                    ['label' => 'Total Pengguna',  'value' => '14.284', 'sub' => '+8.4% bulan ini',    'color' => 'text-[#12b5a8]', 'bg' => 'bg-[#e6faf8]'],
-                    ['label' => 'Customer',         'value' => '10.842', 'sub' => '75.9% pengguna',     'color' => 'text-[#6366f1]', 'bg' => 'bg-indigo-50'],
-                    ['label' => 'UMKM',             'value' => '2.318',  'sub' => '2.041 terverifikasi','color' => 'text-[#f97316]', 'bg' => 'bg-orange-50'],
+['label' => 'Total Pengguna',  'value' => '14.284', 'sub' => '+8.4% bulan ini',    'color' => 'text-emerald-700', 'bg' => 'bg-emerald-50'],
+['label' => 'Customer',         'value' => '10.842', 'sub' => '75.9% pengguna',     'color' => 'text-emerald-700', 'bg' => 'bg-emerald-50'],
+['label' => 'UMKM',             'value' => '2.318',  'sub' => '2.041 terverifikasi','color' => 'text-emerald-700','bg' => 'bg-emerald-50'],
                     ['label' => 'Investor',         'value' => '1.124',  'sub' => '986 terverifikasi',  'color' => 'text-[#2563eb]', 'bg' => 'bg-blue-50'],
                 ] as $kpi)
                     <div class="rounded-2xl border border-slate-100 bg-white p-5 shadow-sm">
